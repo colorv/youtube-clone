@@ -12,8 +12,9 @@ const logger = morgan("dev");
 // view engine
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
-// 글로벌 로그 미들웨어
+// 글로벌 미들웨어
 app.use(logger);
+app.use(express.urlencoded({ extended: true })); // form의 value를 가져오는 미들웨어
 // 라우터
 app.use("/", globalRouter);
 app.use("/users", userRouter);
