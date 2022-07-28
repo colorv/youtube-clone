@@ -1,10 +1,10 @@
 import express from "express";
-import { trending, search } from "../controllers/videoController";
+import { home, search } from "../controllers/videoController";
 import { join, login } from "../controllers/userController";
 
 const globalRouter = express.Router();
 
-globalRouter.get("/", trending);
+globalRouter.get("/", home);
 
 // 기본적인 동작만 수행하므로 수정 해야함
 globalRouter.get("/join", join);
