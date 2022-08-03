@@ -10,15 +10,17 @@ html(lang="ko")
                 ul
                     li 
                         a(href="/") Home 
-                    li
-                        a(href="/videos/upload") Upload Video
                     li 
                         a(href="/search") Serach
                     if loggedIn
                         li
-                            a(href="/logout") Log Out 
+                            a(href="/videos/upload") Upload Video
+                        li
+                            a(href="/users/logout") Log Out 
                         li 
                             a(href="/profile") #{loggedInUser.name}-Profile 
+                        li 
+                            a(href="/users/edit") Edit Profile 
                     else
                         li 
                             a(href="/join") Join

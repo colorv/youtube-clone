@@ -1,0 +1,11 @@
+extends layout 
+
+block content
+    if errorMessage
+            span=errorMessage 
+    form(method="post") 
+        input(name="newName", type="text", required, placeholder="Name" , value=loggedInUser.name)
+        input(name="newEmail", type="email", required, placeholder="Email", value=loggedInUser.email) 
+        input(name="newUsername", type="text", required, placeholder="User Name", value=loggedInUser.username) 
+        input(name="newLocation", type="text", required, placeholder="Location", value=loggedInUser.location) 
+        input(type="submit", value="Update Profile")

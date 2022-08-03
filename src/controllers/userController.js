@@ -2,8 +2,10 @@ import User from "../models/User";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
 
-// get,post - join
-export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
+// GET, POST - join
+export const getJoin = (req, res) => {
+  return res.render("join", { pageTitle: "Join" });
+};
 export const postJoin = async (req, res) => {
   const { name, email, username, password, password2, location } = req.body;
   const pageTitle = "Join";
@@ -30,6 +32,7 @@ export const postJoin = async (req, res) => {
       password,
       location,
     });
+    // To Do: 회원가입시 로그인 시켜서 홈으로보내기
     return res.redirect("/login");
   } catch (error) {
     return res.status(400).render("join", {
@@ -47,7 +50,7 @@ export const getLogin = (req, res) => {
 export const postLogin = async (req, res) => {
   const { username, password } = req.body;
   const pageTitle = "Login";
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ username, socialOnly: false });
   if (!user) {
     return res.status(400).render("login", {
       pageTitle,
@@ -117,25 +120,21 @@ export const githubLoginCallback = async (req, res) => {
     if (!emailObj) {
       return res.redirect("/login");
     }
-    const existingUser = await User.findOne({ email: emailObj.email });
-    if (existingUser) {
-      await existingUser.updateOne({ githubLogin: true });
-      req.session.loggedIn = true;
-      req.session.user = existingUser;
-      return res.redirect("/");
-    } else {
-      const user = await User.create({
+    let user = await User.findOne({ email: emailObj.email });
+    if (!user) {
+      user = await User.create({
         name: userData.name,
         email: emailObj.email,
         username: userData.login,
         password: "",
-        githubLogin: true,
         location: userData.location,
+        socialOnly: true,
+        avatarUrl: userData.avatar_url,
       });
-      req.session.loggedIn = true;
-      req.session.user = user;
-      return res.redirect("/");
     }
+    req.session.loggedIn = true;
+    req.session.user = user;
+    return res.redirect("/");
   } else {
     return res.redirect("/login");
   }
@@ -183,35 +182,103 @@ export const kakaoLoginCallback = async (req, res) => {
       })
     ).json();
     //console.log("user : ", userData);
-    const existingUser = await User.findOne({
+    let user = await User.findOne({
       email: userData.kakao_account.email,
     });
-    if (existingUser) {
-      await existingUser.updateOne({ kakaoLogin: ture });
-      req.session.loggedIn = true;
-      req.session.user = existingUser;
-      return res.redirect("/");
-    } else {
+    console.log("user : ", user);
+    if (!user) {
       const email = userData.kakao_account.email;
       const username = email.split("@");
-      const user = await User.create({
+      user = await User.create({
         name: userData.kakao_account.profile.nickname,
         email,
         username: username[0],
         password: "",
-        kakaoLogin: true,
+        socialOnly: true,
+        avatarUrl: userData.kakao_account.profile.profile_image_url,
       });
-      req.session.loggedIn = true;
-      req.session.user = user;
-      return res.redirect("/");
     }
+    req.session.loggedIn = true;
+    req.session.user = user;
+    return res.redirect("/");
   } else {
     res.redirect("/");
   }
 };
 
+// Log Out
+export const logout = (req, res) => {
+  req.session.destroy();
+  return res.redirect("/");
+};
+
+// GET, POST - Edit
+export const getEdit = (req, res) => {
+  return res.render("editProfile", { pageTitle: "Edit Profile" });
+};
+export const postEdit = async (req, res) => {
+  const {
+    session: {
+      user: { _id, email, username },
+    },
+    body: { newName, newEmail, newUsername, newLocation },
+  } = req;
+
+  const boolean = email !== newEmail || username !== newUsername;
+  if (boolean) {
+    const usernameCheck = await User.exists({ username: newUsername });
+    const emailCheck = await User.exists({ email: newEmail });
+
+    if (email === newEmail && usernameCheck) {
+      return res.status(400).render("editProfile", {
+        pageTitle: "Edit Profile",
+        errorMessage: "This Username is alredy taken.",
+      });
+    }
+    if (username === newUsername && emailCheck) {
+      return res.status(400).render("editProfile", {
+        pageTitle: "Edit Profile",
+        errorMessage: "This Email is alredy taken.",
+      });
+    }
+    if (emailCheck && usernameCheck) {
+      return res.status(400).render("editProfile", {
+        pageTitle: "Edit Profile",
+        errorMessage: "This Username/Email is alredy taken.",
+      });
+    }
+  }
+
+  const updateUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      name: newName,
+      email: newEmail,
+      username: newUsername,
+      location: newLocation,
+    },
+    { new: true }
+  );
+  req.session.user = updateUser;
+  return res.redirect("/users/edit");
+};
+
 // 기본적인 동작만 수행하므로 수정 해야함
-export const edit = (req, res) => res.send("Edit User");
-export const remove = (req, res) => res.send("Remove User");
-export const logout = (req, res) => res.send("LogOut");
 export const see = (req, res) => res.send("see User");
+
+// Profile Edit 정리
+// 유저네임과 이메일은 유니크이기 때문에 중복 확인이 필요하다.
+// 중복 확인시 유저네임이 같고 이메일이 같은데 다른곳을 수정하면
+// 기존에 사용하던 유저네임과 이메일이 중복된다고 오류가 발생한다.
+
+// 세션에 저장된 유저네임과 이메일이 다른지 체크해서 다른 값이 있으면 다른값만 중복확인을 진행한다.
+
+// email !== newEmail, username !== newUsername
+// 다름, 다름 1
+// 다름, 같음 1
+// 같음, 다름 1
+// 같음, 같음 0
+// true를 반환하는 경우에만 중복확인하기
+// email은 기존 값과 같고 username만 변경했을때 중복된 username이 있을 경우 오류처리
+// username은 기존 값과 같고 email만 변경했을때 중복된 email이 있을 경우 오류처리
+// email과 username을 변경했을때 모두 중복된 경우 오류 처리

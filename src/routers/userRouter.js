@@ -1,28 +1,28 @@
 import express from "express";
 import {
-  edit,
-  remove,
   logout,
   see,
   githubLogin,
   githubLoginCallback,
   kakaoLogin,
   kakaoLoginCallback,
+  getEdit,
+  postEdit,
 } from "../controllers/userController";
+import { protectMiddleware, publicOnlyMiddleware } from "../middlewares";
 
 const userRouter = express.Router();
 
 // github Login
-userRouter.get("/github/login", githubLogin);
-userRouter.get("/github/callback", githubLoginCallback);
+userRouter.get("/github/login", publicOnlyMiddleware, githubLogin);
+userRouter.get("/github/callback", publicOnlyMiddleware, githubLoginCallback);
 // kakao Login
-userRouter.get("/kakao/login", kakaoLogin);
-userRouter.get("/kakao/callback", kakaoLoginCallback);
+userRouter.get("/kakao/login", publicOnlyMiddleware, kakaoLogin);
+userRouter.get("/kakao/callback", publicOnlyMiddleware, kakaoLoginCallback);
 
+userRouter.get("/logout", protectMiddleware, logout);
+userRouter.route("/edit").all(protectMiddleware).get(getEdit).post(postEdit);
 // 기본적인 동작만 수행하므로 수정 해야함
-userRouter.get("/logout", logout);
-userRouter.get("/edit", edit);
-userRouter.get("/remove", remove);
 userRouter.get("/:id", see);
 
 export default userRouter;
