@@ -25,15 +25,16 @@ export const postJoin = async (req, res) => {
     });
   }
   try {
-    await User.create({
+    const user = await User.create({
       name,
       email,
       username,
       password,
       location,
     });
-    // To Do: 회원가입시 로그인 시켜서 홈으로보내기
-    return res.redirect("/login");
+    req.session.loggedIn = true;
+    req.session.user = user;
+    return res.redirect("/");
   } catch (error) {
     return res.status(400).render("join", {
       pageTitle,
@@ -57,8 +58,8 @@ export const postLogin = async (req, res) => {
       errorMessage: "An account with this username does not exists.",
     });
   }
-  const match = await bcrypt.compare(password, user.password);
-  if (!match) {
+  const passwordCheck = await bcrypt.compare(password, user.password);
+  if (!passwordCheck) {
     return res.status(400).render("login", {
       pageTitle,
       errorMessage: "Wrong password",
@@ -185,7 +186,7 @@ export const kakaoLoginCallback = async (req, res) => {
     let user = await User.findOne({
       email: userData.kakao_account.email,
     });
-    console.log("user : ", user);
+    //console.log("user : ", user);
     if (!user) {
       const email = userData.kakao_account.email;
       const username = email.split("@");
@@ -214,36 +215,38 @@ export const logout = (req, res) => {
 
 // GET, POST - Edit
 export const getEdit = (req, res) => {
-  return res.render("editProfile", { pageTitle: "Edit Profile" });
+  return res.render("users/editProfile", { pageTitle: "Edit Profile" });
 };
 export const postEdit = async (req, res) => {
+  const path = "users/editProfile";
+  const pageTitle = "Edit Profile";
   const {
     session: {
-      user: { _id, email, username },
+      user: { _id, email, username, avatarUrl },
     },
     body: { newName, newEmail, newUsername, newLocation },
+    file,
   } = req;
-
   const boolean = email !== newEmail || username !== newUsername;
   if (boolean) {
     const usernameCheck = await User.exists({ username: newUsername });
     const emailCheck = await User.exists({ email: newEmail });
 
     if (email === newEmail && usernameCheck) {
-      return res.status(400).render("editProfile", {
-        pageTitle: "Edit Profile",
+      return res.status(400).render(path, {
+        pageTitle,
         errorMessage: "This Username is alredy taken.",
       });
     }
     if (username === newUsername && emailCheck) {
-      return res.status(400).render("editProfile", {
-        pageTitle: "Edit Profile",
+      return res.status(400).render(path, {
+        pageTitle,
         errorMessage: "This Email is alredy taken.",
       });
     }
     if (emailCheck && usernameCheck) {
-      return res.status(400).render("editProfile", {
-        pageTitle: "Edit Profile",
+      return res.status(400).render(path, {
+        pageTitle,
         errorMessage: "This Username/Email is alredy taken.",
       });
     }
@@ -256,6 +259,7 @@ export const postEdit = async (req, res) => {
       email: newEmail,
       username: newUsername,
       location: newLocation,
+      avatarUrl: file ? file.path : avatarUrl,
     },
     { new: true }
   );
@@ -263,22 +267,46 @@ export const postEdit = async (req, res) => {
   return res.redirect("/users/edit");
 };
 
+// GET, POST - Change Password
+export const getChangePassword = (req, res) => {
+  return res.render("users/changePassword", { pageTitle: "Change Password" });
+};
+export const postChangePassword = async (req, res) => {
+  const pageTitle = "Change Password";
+  const path = "users/changePassword";
+  const {
+    body: { currentPassword, newPassword, newPassword2 },
+    session: {
+      user: { _id },
+    },
+  } = req;
+  const user = await User.findById(_id);
+  const passwordCheck = await bcrypt.compare(currentPassword, user.password);
+  if (!passwordCheck) {
+    return res.status(400).render(path, {
+      pageTitle,
+      errorMessage: "Current passwords do not match.",
+    });
+  }
+  if (newPassword !== newPassword2) {
+    return res.status(400).render(path, {
+      pageTitle,
+      errorMessage: "New passwords do not match.",
+    });
+  }
+  if (currentPassword === newPassword) {
+    return res.status(400).render(path, {
+      pageTitle,
+      errorMessage:
+        "Your new password cannot be the same as your current password",
+    });
+  }
+
+  user.password = newPassword;
+  await user.save();
+  req.session.user.password = user.password;
+  return res.redirect("/users/edit");
+};
+
 // 기본적인 동작만 수행하므로 수정 해야함
 export const see = (req, res) => res.send("see User");
-
-// Profile Edit 정리
-// 유저네임과 이메일은 유니크이기 때문에 중복 확인이 필요하다.
-// 중복 확인시 유저네임이 같고 이메일이 같은데 다른곳을 수정하면
-// 기존에 사용하던 유저네임과 이메일이 중복된다고 오류가 발생한다.
-
-// 세션에 저장된 유저네임과 이메일이 다른지 체크해서 다른 값이 있으면 다른값만 중복확인을 진행한다.
-
-// email !== newEmail, username !== newUsername
-// 다름, 다름 1
-// 다름, 같음 1
-// 같음, 다름 1
-// 같음, 같음 0
-// true를 반환하는 경우에만 중복확인하기
-// email은 기존 값과 같고 username만 변경했을때 중복된 username이 있을 경우 오류처리
-// username은 기존 값과 같고 email만 변경했을때 중복된 email이 있을 경우 오류처리
-// email과 username을 변경했을때 모두 중복된 경우 오류 처리
