@@ -1,0 +1,11 @@
+extends ../layout
+include ../mixins/video
+
+block content 
+    small 
+        p=user.name
+    br
+    each video in videos 
+        +videoMixin(video)
+    else 
+        li Sorry nothing found

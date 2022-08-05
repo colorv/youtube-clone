@@ -1,6 +1,7 @@
 import User from "../models/User";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
+import Video from "../models/video";
 
 // GET, POST - join
 export const getJoin = (req, res) => {
@@ -308,5 +309,18 @@ export const postChangePassword = async (req, res) => {
   return res.redirect("/users/edit");
 };
 
-// 기본적인 동작만 수행하므로 수정 해야함
-export const see = (req, res) => res.send("see User");
+// Profile See
+export const see = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findById(id);
+    const videos = await Video.find({ owner: user._id });
+    return res.render("users/profile", {
+      pageTitle: user.name,
+      user,
+      videos,
+    });
+  } catch (error) {
+    return res.status(400).render("404");
+  }
+};

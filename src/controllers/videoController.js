@@ -1,3 +1,4 @@
+import User from "../models/User";
 import Video from "../models/video";
 
 // Home page
@@ -13,7 +14,7 @@ export const home = async (req, res) => {
 // Watch Video
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id);
+  const video = await Video.findById(id).populate("owner");
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
@@ -52,16 +53,32 @@ export const getUpload = (req, res) => {
   return res.render("videos/uploadVideo", { pageTitle: "Upload" });
 };
 export const postUpload = async (req, res) => {
-  const { title, description, hashtags } = req.body;
+  const {
+    body: { title, description, hashtags },
+    session: {
+      user: { _id },
+    },
+    file,
+  } = req;
+  // if (!file) {
+  //   return res.status(400).render("videos/uploadVideo", {
+  //     pageTitle: "Upload",
+  //     errorMessage: "Video file required.",
+  //   });
+  // }
+  // Video model에서 videoUrl이 required로 설정하면 밑에서 오류 처리가능
   try {
     const video = new Video({
       title,
       description,
       hashtags: Video.formatHashtags(hashtags),
+      videoUrl: file ? file.path : "",
+      owner: _id,
     });
     await video.save();
     return res.redirect("/");
   } catch (error) {
+    console.log(error);
     return res.status(400).render("videos/uploadVideo", {
       pageTitle: "Upload",
       errorMessage: error._message,

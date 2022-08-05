@@ -23,4 +23,29 @@ export const publicOnlyMiddleware = (req, res, next) => {
   return next();
 };
 
-export const uploadMiddleware = multer({ dest: "uploads/" });
+export const avatarUpload = multer({
+  dest: "uploads/avatars",
+  limits: { fileSize: 10000000 },
+});
+
+// export const videoUpload = multer({
+//   dest: "uploads/videos",
+//   limits: { fileSize: 10 },
+// });
+// ▲ multer doc참조해서 오류처리, 밑으로 바뀜
+
+export const videoUpload = (req, res, next) => {
+  const videoMulter = multer({
+    dest: "uploads/videos",
+    limits: { fileSize: 100000000 },
+  });
+  videoMulter.single("video")(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      return res.status(400).render("videos/uploadVideo", {
+        pageTitle: "Upload",
+        errorMessage: err.message,
+      });
+    }
+    next();
+  });
+};

@@ -14,7 +14,7 @@ import {
 import {
   protectMiddleware,
   publicOnlyMiddleware,
-  uploadMiddleware,
+  avatarUpload,
 } from "../middlewares";
 
 const userRouter = express.Router();
@@ -32,7 +32,7 @@ userRouter
   .route("/edit")
   .all(protectMiddleware)
   .get(getEdit)
-  .post(uploadMiddleware.single("avatar"), postEdit);
+  .post(avatarUpload.single("avatar"), postEdit);
 
 userRouter
   .route("/change-password")
@@ -40,7 +40,6 @@ userRouter
   .get(getChangePassword)
   .post(postChangePassword);
 
-// 기본적인 동작만 수행하므로 수정 해야함
 userRouter.get("/:id", see);
 
 export default userRouter;
