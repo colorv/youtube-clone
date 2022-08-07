@@ -1,0 +1,24 @@
+article {
+  width: 320px;
+  height: 255px;
+  margin: 0px 15px 55px 0px;
+  .video-text {
+    display: flex;
+    margin-top: 12px;
+    .video-text__column:first-child {
+      margin-right: 12px;
+      i {
+        font-size: 30px;
+      }
+    }
+    .video-text__column:last-child {
+      .video-text__title {
+        height: 40px;
+        font-size: 15px;
+      }
+      small {
+        font-size: 10px;
+      }
+    }
+  }
+}

@@ -1,10 +1,12 @@
 mixin videoMixin(video)
-    div
-        h4
-            a(href=`/videos/${video.id}`)=video.title
-        p=video.description
-        each hashtag in video.hashtags 
-            span #{hashtag} 
-        br 
-        small=video.createdAt
-        hr
+    article
+        div.video
+            a(href=`/videos/${video.id}`) 
+                video(src=`${video.videoUrl}`, width="320").content__video
+        hgroup.video-text
+            div.video-text__column
+                i.fa-solid.fa-circle-user
+            div.video-text__column  
+                a(href=`/videos/${video.id}`) 
+                    h1.video-text__title=`${video.title}`
+                small=video.createdAt
