@@ -1,12 +1,21 @@
 mixin videoMixin(video)
-    article
-        div.video
+    article.video
+        div.video__thumbnail
             a(href=`/videos/${video.id}`) 
                 video(src=`${video.videoUrl}`, width="320").content__video
-        hgroup.video-text
-            div.video-text__column
+        hgroup.video__info
+            div.video__owner
                 i.fa-solid.fa-circle-user
-            div.video-text__column  
-                a(href=`/videos/${video.id}`) 
-                    h1.video-text__title=`${video.title}`
-                small=video.createdAt
+            div.video__text
+                div.video__title 
+                    a(href=`/videos/${video.id}`) 
+                        h1.video__title--h1=video.title
+                    button.video__btn
+                        i.fa-solid.fa-ellipsis-vertical
+                div.video__meta
+                    div.video__owner-name 
+                        span=video.owner.username
+                    div.video__meta__info 
+                        span.video__meta__views=`조회수 ${video.meta.views}회 `
+                        div.meta__block
+                        span.video__meta__time=`${video.createdAt}`

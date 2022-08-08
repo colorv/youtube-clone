@@ -1,0 +1,108 @@
+.main__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 200px;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: 500px;
+  padding: 40px;
+  border-radius: 10px;
+  border: 1px solid rgba($color: #ffffff, $alpha: 0.2);
+
+  .login__form {
+    height: 280px;
+    .login__title {
+      display: flex;
+      justify-content: center;
+      font-size: 40px;
+      margin-bottom: 30px;
+      .login__title__icon {
+        color: $red;
+        margin-right: 15px;
+      }
+    }
+    .login__id,
+    .login__password {
+      border-bottom: 1px solid $grey_text;
+      i {
+        margin-right: 12px;
+      }
+    }
+    .login__input {
+      width: 90%;
+      height: 40px;
+      background-color: unset;
+      color: white;
+      border: none;
+    }
+    ::placeholder {
+      color: white;
+      opacity: 0.5;
+    }
+    :focus {
+      outline: none;
+    }
+    .login__password {
+      margin-bottom: 30px;
+    }
+    .login__error-message {
+      color: $red;
+      .error-message {
+        display: flex;
+        height: 40px;
+      }
+    }
+    .login__submit {
+      height: 52.5px;
+      width: 350px;
+      font-size: 20px;
+      background-color: $login_bg;
+      color: white;
+      border-radius: 5px;
+      border: none;
+    }
+  }
+  .social-login {
+    margin-top: 60px;
+    .social-login__title {
+      display: flex;
+      font-size: 14px;
+      padding-bottom: 10px;
+    }
+    .social-login__github {
+      display: flex;
+      align-items: center;
+      height: 52.5px;
+      margin-top: 10px;
+      background-color: $github_bg;
+      color: black;
+      border-radius: 5px;
+      padding: 0px 18px;
+      i {
+        font-size: 24px;
+      }
+      span {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        font-size: 17.5px;
+      }
+    }
+    .social-login-kakao {
+      margin-top: 15px;
+      width: 350px;
+    }
+  }
+}
+
+.join {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 13px;
+}
