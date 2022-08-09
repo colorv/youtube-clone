@@ -4,18 +4,14 @@ block content
     div.main__body
         article.login
             form(method="post").login__form  
-                div.login__title 
-                    i.login__title__icon.fab.fa-youtube 
-                    h1.login__title__text YouTube
+                include partials/logo.pug
                 div.login__id 
                     i.fa-solid.fa-user 
                     input(name="username", type="text", required, placeholder="아이디").login__input 
                 div.login__password
                     i.fa-solid.fa-lock
                     input(name="password", type="password", required, placeholder="비밀번호").login__input
-                div.login__error-message
-                    if errorMessage
-                        span.error-message=errorMessage
+                include partials/error.pug
                 input(type="submit", value="로그인").login__submit
                 
             div.social-login

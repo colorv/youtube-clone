@@ -314,7 +314,6 @@ export const see = async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findById(id).populate("videos");
-
     return res.render("users/profile", {
       pageTitle: user.name,
       user,

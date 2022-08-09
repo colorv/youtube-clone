@@ -1,0 +1,34 @@
+.join {
+  .join__form {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 650px;
+    padding: 40px;
+    border: 1px solid rgba($color: white, $alpha: 0.1);
+    border-radius: 10px;
+    .join__input {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+      label {
+        text-align: start;
+        margin-bottom: 10px;
+        color: rgba($color: white, $alpha: 0.8);
+      }
+      input {
+        height: 40px;
+        background-color: unset;
+        color: white;
+        background-color: $dark;
+        border: none;
+      }
+      :focus {
+        outline: none;
+      }
+      .join__submit {
+        height: 50px;
+      }
+    }
+  }
+}

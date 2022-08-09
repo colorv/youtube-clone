@@ -1,19 +1,20 @@
 header {
   background-color: $dark;
-  padding: 15px 50px;
+  height: 55px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  padding: 1px 20px;
   border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.1);
 
-  .header__logo {
-    color: $red;
-    font-size: 27px;
-    margin-left: 21px;
+  .header__menu {
+    font-size: 20px;
+    margin-left: 8px;
+  }
+  nav {
+    margin-left: auto;
   }
   ul {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     li {
       margin-left: 30px;
@@ -22,15 +23,42 @@ header {
         font-size: 20px;
       }
     }
-  }
-  .header__btn {
-    display: flex;
-    align-items: center;
-    padding: 7px 14px;
-    border: 1px solid $login_color;
-    color: $login_color;
-    span {
-      margin-left: 10px;
+    .header__search {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      margin-right: 50px;
+      background-color: $search_btn;
+      .header__search__input {
+        height: 35px;
+        width: 350px;
+        background-color: $search_bg;
+        color: white;
+        border: 1px solid $search_btn;
+      }
+      :focus {
+        outline: 1px solid $login_color;
+      }
+      .header__search__icon {
+        width: 55px;
+        height: 40px;
+        background-color: unset;
+        color: white;
+        border: none;
+        margin-left: 1px;
+      }
+    }
+    .header__login__btn {
+      display: flex;
+      align-items: center;
+      width: 68px;
+      padding: 7px 12px;
+      margin-right: 10px;
+      border: 1px solid $login_color;
+      color: $login_color;
+      span {
+        margin-left: 10px;
+      }
     }
   }
 }

@@ -1,11 +1,7 @@
 extends layout 
-include mixins/video
+include mixins/video-m
 
 block content
-    form(method="get")
-        input(name="keyword", type="text", placeholder="Search By title")
-        input(type="submit", value="Search now")
-
-    div
-        each video in videos
-            +videoMixin(video)
+    each video in videos
+            article.video__m
+                +videoMixin(video)

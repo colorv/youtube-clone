@@ -3,8 +3,6 @@ mixin videoMixin(video)
         a(href=`/videos/${video.id}`) 
             video(src=`/${video.videoUrl}`, width="320").content__video
     hgroup.video__info
-        div.video__owner
-            i.fa-solid.fa-circle-user
         div.video__text
             div.video__title 
                 a(href=`/videos/${video.id}`) 
@@ -12,9 +10,12 @@ mixin videoMixin(video)
                 button.video__btn
                     i.fa-solid.fa-ellipsis-vertical
             div.video__meta
-                div.video__owner-name 
-                    span=video.owner.username
                 div.video__meta__info 
                     span.video__meta__views=`조회수 ${video.meta.views}회 `
                     div.meta__block
                     span.video__meta__time=`${video.createdAt}`
+                div.video__owner
+                    i.fa-solid.fa-circle-user
+                    span=video.owner.username
+                div.video__description
+                    p=`${video.description} ${video.hashtags}`

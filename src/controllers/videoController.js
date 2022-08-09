@@ -135,7 +135,7 @@ export const search = async (req, res) => {
         //$regex: keyword,
         //$options: "i",
       },
-    });
+    }).populate("owner");
   }
   res.render("search", { pageTitle: "Search", videos });
 };
