@@ -1,16 +1,45 @@
 extends ../layout.pug
+include ../mixins/video.pug
 
-block content 
-    video(src=`/${video.videoUrl}`, width=500, controls) 
-    div 
-        p=video.description
-        small=video.createdAt
-    div 
-        small Upload by 
-            a(href=`/users/${video.owner._id}`) #{video.owner.name} 
-    br
-    if(loggedInUser)
-        if String(loggedInUser._id) === String(video.owner._id)
-            a(href=`${video.id}/edit`) Edit Video &rarr;
-            br
-            a(href=`${video.id}/delete`) Delete Video &rarr;  
+block content
+    article.watch
+        div.watch-video
+            a(href=`/videos/${video.id}`) 
+                video(src=`/${video.videoUrl}`, controls).content__video
+        hgroup.watch-video__info
+            div.watch-video__text
+                div.watch-video__title
+                    span.watch-video__hashtags=video.hashtags
+                    h1.watch-video__title--h1=video.title
+                div.watch-video__meta
+                    div.watch-video__meta__info 
+                            span.watch-video__meta__views 조회수 #{video.meta.views}회&nbsp;
+                            span.watch-video__meta__date=`${video.createdAt}`
+                    div.watch-video__btn-container
+                        i.fa-solid.fa-thumbs-up
+                            span 좋아요
+                        i.fa-solid.fa-thumbs-down
+                            span 싫어요
+                        i.fa-solid.fa-share
+                            span 공유
+                        i.fa-solid.fa-download
+                            span 저장
+                        i.fa-solid.fa-ellipsis
+            div.watch-video__owner
+                div.watch-video__owner__row
+                    i.watch-video__owner__icon.fa-solid.fa-circle-user
+                div.watch-video__owner__row
+                    div.watch-video__owner__info
+                        span.watch-video__owner-name=video.owner.username
+                        span.watch-video__subscribe="구독자 0명"
+                        span.watch-video__hashtags=video.hashtags
+                        span.watch-video__description=video.description
+                div.watch-video__owner__row
+                    button 구독
+    article.watch-video__comment
+        div.watch-video__comment__text
+            span 댓글 1,059개
+        div.watch-video__comment__write
+            i.fa-solid.fa-circle-user
+            input(name="comment", type="text", placeholder="댓글 추가..." ).watch-video__comment__input
+        

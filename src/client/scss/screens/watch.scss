@@ -1,0 +1,121 @@
+.watch {
+  min-width: 500px;
+  width: 70%;
+  .watch-video {
+    video {
+      width: 100%;
+    }
+  }
+  .watch-video__info {
+    .watch-video__text {
+      .watch-video__title {
+        margin: 13px 0px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .watch-video__meta {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        .watch-video__meta__info {
+          display: flex;
+          font-size: 15px;
+          color: $grey_text;
+        }
+        .watch-video__btn-container {
+          display: flex;
+          font-size: 15px;
+          margin-right: 10px;
+          i {
+            margin-left: 25px;
+            span {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+    }
+
+    .watch-video__owner {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid rgba($color: white, $alpha: 0.15);
+      border-bottom: 1px solid rgba($color: white, $alpha: 0.15);
+      padding: 20px 0px;
+      .watch-video__owner__row {
+        display: flex;
+        .watch-video__owner__icon {
+          font-size: 45px;
+        }
+        .watch-video__owner__info {
+          display: flex;
+          flex-direction: column;
+          .watch-video__owner-name {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 2;
+          }
+          .watch-video__subscribe {
+            font-size: 12px;
+            color: $grey_text;
+            margin-bottom: 20px;
+          }
+        }
+      }
+      .watch-video__owner__row:first-child {
+        width: 10%;
+      }
+      .watch-video__owner__row:nth-child(2) {
+        width: 50%;
+      }
+      .watch-video__owner__row:last-child {
+        width: 40%;
+        justify-content: end;
+        padding-right: 5px;
+        button {
+          width: 72px;
+          height: 36px;
+          border: none;
+          border-radius: 2px;
+          color: white;
+          background-color: $subscribe_color;
+        }
+      }
+    }
+  }
+}
+
+.watch-video__comment {
+  width: 70%;
+  margin: 25px 0px;
+  .watch-video__comment__text {
+    font-size: 17px;
+    margin-bottom: 25px;
+  }
+  .watch-video__comment__write {
+    display: flex;
+    font-size: 40px;
+    .watch-video__comment__input {
+      width: 90%;
+      margin-left: 20px;
+      height: 20px;
+      background-color: unset;
+      border: none;
+      border-bottom: 1px solid rgba($color: white, $alpha: 0.15);
+      color: white;
+    }
+    ::placeholder {
+      color: $grey_text;
+    }
+    :focus {
+      outline: none;
+      border-bottom: 1px solid white;
+    }
+  }
+}
+
+.watch-video__hashtags {
+  font-size: 12px;
+  color: $blue;
+  line-height: 20px;
+}

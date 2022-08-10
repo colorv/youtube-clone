@@ -20,7 +20,10 @@ export const watch = async (req, res) => {
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
-  return res.render("videos/watch", { pageTitle: video.title, video });
+  return res.render("videos/watch", {
+    pageTitle: video.title,
+    video,
+  });
 };
 
 // GET, POST-Edit Controller
