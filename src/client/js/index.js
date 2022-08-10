@@ -1,6 +1,6 @@
 import "../scss/styles.scss";
 
-const x = document.querySelectorAll(".video__meta__time");
+const videoTime = document.querySelectorAll(".video__meta__time");
 
 const timeFilter = function (time) {
   let stringTime = "";
@@ -20,7 +20,7 @@ const timeFilter = function (time) {
   return stringTime;
 };
 
-x.forEach(function (element) {
+videoTime.forEach(function (element) {
   const createdTime = new Date(element.innerHTML);
   const elapsedTime = Math.floor((Date.now() - createdTime) / 1000);
   element.innerHTML = timeFilter(elapsedTime);
@@ -31,3 +31,19 @@ x.forEach(function (element) {
 // - 1주 604800초
 // - 1달 2592000초 : (28일,30일,31일 ???)
 // - 1년 31536000초
+
+// created Date
+
+const createdDate = document.querySelector(".watch-video__meta__date");
+
+const createdHandler = function (target) {
+  const date = new Date(target.innerHTML);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  target.innerHTML = `${year}. ${month}. ${day}.`;
+};
+
+if (createdDate) {
+  createdHandler(createdDate);
+}
