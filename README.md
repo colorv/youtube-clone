@@ -30,6 +30,6 @@
 
 - [ ] Profile
 - [ ] Profile Edit
-- [x] Video Watch
-- [ ] Video Upload
-- [ ] Video Edit
+- [x] Video Watch -> need Edit_Btn, Remove_Btn
+- [x] Video Upload
+- [x] Video Edit -> Edit/Upload Same structure -> Component (name: updateVideo ?)

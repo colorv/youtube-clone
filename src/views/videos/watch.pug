@@ -4,8 +4,7 @@ include ../mixins/video.pug
 block content
     article.watch
         div.watch-video
-            a(href=`/videos/${video.id}`) 
-                video(src=`/${video.videoUrl}`, controls).content__video
+            video(src=`/${video.videoUrl}`, controls).content__video
         hgroup.watch-video__info
             div.watch-video__text
                 div.watch-video__title

@@ -1,12 +1,28 @@
 extends ../layout
 
 block content
-    if errorMessage 
-        span=errorMessage
-    form(method="post" enctype="multipart/form-data")
-        label(for="video") Video
-        input(name="video", type="file", id="video", accept="video/*", required)
-        input(name="title", type="text", placeholder="Title Name", required, maxlength="100")
-        input(name="description", type="text", placeholder="Description", required, maxlength="5000")
-        input(name="hashtags", type="text", placeholder="Hashtags, separated by comma.", required)
-        input(type="submit", value="Upload Video")
+    div.upload-video
+        div.upload-video__header
+            p.upload-video__header__title
+            a(href="/").exit-btn 
+                i.fa-solid.fa-xmark
+        div.upload-video__body
+            form(method="post" enctype="multipart/form-data").upload-video__form
+                div.upload-video__form__input
+                    span.uload-video__form__title 세부정보
+                    div.video__input.video__input__title 
+                        label(for="title")="제목(필수 항목)"
+                        textarea(name="title", id="title" placeholder="동영상을 설명하는 제목 추가", required, maxlength="100", rows="3")
+                    div.video__input.video__input__description 
+                        label(for="description") 설명
+                        textarea(name="description", id="description", placeholder="시청자에게 동영상에 대해 이야기하기", required, maxlength="5000", rows="10")
+                    div.video__input.video__input__hashtags
+                        label(for="hashtags") 해시태그
+                        input(name="hashtags", type="text", id="hashtags", placeholder="해시태그 추가", required)
+                    if errorMessage 
+                        span.errorMessage=errorMessage
+                div.upload-video__form__file
+                    div.file__image
+                    input(name="video", type="file", id="video", accept="video/*", required).file__video
+                div.upload-video__form__submit              
+                    button(type="submit") 업로드

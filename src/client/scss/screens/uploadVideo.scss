@@ -1,0 +1,117 @@
+.upload-video {
+  width: 950px;
+  background-color: $input_bg;
+  border-radius: 10px;
+  .upload-video__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    border-bottom: 1px solid $white_opacity;
+    .exit-btn {
+      margin-right: 10px;
+    }
+  }
+  .upload-video__body {
+    display: flex;
+    padding: 0px 30px 70px 30px;
+    position: relative;
+    input,
+    textarea {
+      background-color: unset;
+      border: none;
+      color: white;
+    }
+    :focus {
+      outline: none;
+    }
+
+    .upload-video__form {
+      display: flex;
+      width: 100%;
+      .upload-video__form__input {
+        display: flex;
+        flex-direction: column;
+        width: 65%;
+        margin-right: 30px;
+        .uload-video__form__title {
+          font-size: 23px;
+          font-weight: 500;
+        }
+        .video__input {
+          display: flex;
+          flex-direction: column;
+          padding: 10px 10px;
+          border: 1px solid $white_opacity;
+          border-radius: 5px;
+          color: $grey_text;
+          label {
+            font-size: 11px;
+            margin-bottom: 10px;
+          }
+          textarea {
+            resize: none;
+          }
+          input,
+          textarea::placeholder {
+            font-size: 14px;
+          }
+        }
+        .video__input:focus-within {
+          border: 1px solid $blue;
+          label {
+            color: $blue;
+          }
+        }
+
+        .video__input__title {
+          height: 60px;
+          margin: 20px 0px;
+        }
+        .video__input__description {
+          height: 150px;
+          margin-bottom: 20px;
+        }
+        .video__input__hashtags {
+          height: 40px;
+        }
+      }
+      .upload-video__form__file {
+        display: flex;
+        flex-direction: column;
+        width: 35%;
+        padding-top: 35px;
+        .file__image {
+          height: 180px;
+          background-color: black;
+          border-radius: 5px 5px 0px 0px;
+        }
+        .file__video {
+          height: 50px;
+          background-color: $dark_bg;
+          padding: 20px 20px 0px 20px;
+          border-radius: 0px 0px 5px 5px;
+          color: $grey_text;
+        }
+      }
+      .upload-video__form__submit {
+        position: absolute;
+        bottom: 20px;
+        right: 30px;
+        button {
+          width: 60px;
+          height: 35px;
+          border: none;
+          border-radius: 2.5px;
+          background-color: $blue;
+        }
+      }
+    }
+  }
+}
+
+.errorMessage {
+  margin-top: 20px;
+  color: tomato;
+}
