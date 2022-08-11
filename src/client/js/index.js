@@ -33,7 +33,6 @@ videoTime.forEach(function (element) {
 // - 1년 31536000초
 
 // created Date
-
 const createdDate = document.querySelector(".watch-video__meta__date");
 
 const createdHandler = function (target) {
@@ -47,3 +46,15 @@ const createdHandler = function (target) {
 if (createdDate) {
   createdHandler(createdDate);
 }
+
+// Upload Video - Title
+const videoTitle = document.querySelector(".upload-video__header__title");
+const videoInputTitle = document.querySelector(
+  ".video__input.video__input__title textarea"
+);
+
+const titleHandler = (element) => {
+  videoTitle.innerHTML = element.target.value;
+};
+
+videoInputTitle.addEventListener("input", titleHandler);
