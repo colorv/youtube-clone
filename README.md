@@ -28,8 +28,9 @@
 
 ### CSS To Do List
 
-- [ ] Profile
-- [ ] Profile Edit
+- [x] Profile
+- [x] Profile Edit
+- [x] Change Password
 - [x] Video Watch -> need Edit_Btn, Remove_Btn
 - [x] Video Upload
 - [x] Video Edit -> Edit/Upload Same structure -> Component (name: updateVideo ?)

@@ -15,6 +15,9 @@
 @import "./screens/join.scss";
 @import "./screens/watch.scss";
 @import "./screens/uploadVideo.scss";
+@import "./screens/profile.scss";
+@import "./screens/editProfile.scss";
+@import "./screens/changePassword.scss";
 
 // default
 a {
@@ -29,5 +32,5 @@ body {
   color: white;
 }
 main {
-  padding-left: 70px;
+  width: 100%;
 }

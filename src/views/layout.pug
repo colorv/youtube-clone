@@ -6,7 +6,7 @@ html(lang="ko")
         link(rel="stylesheet", href="/static/css/styles.css")
     body 
         include partials/header.pug
-        main
+        main.main--column.main--row
+            include partials/side-bar.pug
             block content
-        include partials/side-bar.pug
         script(src="/static/js/main.js") 

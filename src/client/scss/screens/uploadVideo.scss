@@ -1,7 +1,11 @@
+.main--row {
+  display: flex;
+}
 .upload-video {
   width: 950px;
   background-color: $input_bg;
   border-radius: 10px;
+  margin: auto;
   .upload-video__header {
     display: flex;
     justify-content: space-between;

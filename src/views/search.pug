@@ -2,6 +2,7 @@ extends layout
 include mixins/video-m
 
 block content
-    each video in videos
-            article.video__m
-                +videoMixin(video)
+    div.search
+        each video in videos
+                article.video__m
+                    +videoMixin(video)

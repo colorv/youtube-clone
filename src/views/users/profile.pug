@@ -1,11 +1,39 @@
 extends ../layout
 include ../mixins/video
 
-block content 
-    small 
-        p=user.name 
-    each video in user.videos
-        article.video
-            +videoMixin(video)
-    else 
-        li Sorry nothing found
+block content
+    div.profile
+        div.profile__header
+            div.profile__header__column
+                div.profile__user__edit 
+                    img(src=`/${user.avatarUrl}`).profile__image
+                    a(href="edit").profile__edit__button
+                        i.fa-solid.fa-camera
+                div.profile__user__info
+                    span.profile__user__name=user.name
+                    span.profile__user__subscriber 구독자 없음
+            div.profile__header__column
+                button 채널 맞춤설정
+                button 동영상 관리
+        nav.profile__nav
+            div.profile__nav__btn 
+                span 홈
+            div.profile__nav__btn
+                span 동영상
+            div.profile__nav__btn
+                span 재생목록
+            div.profile__nav__btn
+                span 채널
+            div.profile__nav__btn
+                span 정보
+            div.profile__nav__btn
+                span 
+                    i.fa-solid.fa-magnifying-glass
+        div.profile__horizon
+            span.profile__horizon__title 올린 동영상
+        div.profile__body
+            each video in user.videos
+                article.video
+                    +videoMixin(video)
+            else 
+                li Sorry nothing found

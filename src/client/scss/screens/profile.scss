@@ -1,0 +1,101 @@
+.profile {
+  width: 100%;
+  background-color: #0f0f0f;
+}
+
+.profile__header {
+  display: flex;
+  padding: 30px 23px;
+  background-color: $dark_bg;
+  .profile__header__column:first-child {
+    display: flex;
+    width: 50%;
+    .profile__user__edit {
+      position: relative;
+      .profile__image {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: white;
+      }
+      .profile__edit__button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        color: rgba($color: white, $alpha: 0.5);
+        background-color: rgba($color: black, $alpha: 0.6);
+        border-radius: 50%;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        opacity: 0;
+      }
+    }
+    .profile__user__edit:hover {
+      .profile__edit__button {
+        opacity: 1;
+      }
+    }
+    .profile__user__info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 30px;
+      .profile__user__name {
+        font-size: 22px;
+        margin-bottom: 8px;
+      }
+      .profile__user__subscriber {
+        font-size: 14px;
+        color: rgba($color: white, $alpha: 0.5);
+      }
+    }
+  }
+  .profile__header__column:last-child {
+    width: 50%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    button {
+      width: 100px;
+      height: 40px;
+      background-color: $blue;
+      border: none;
+      border-radius: 3px;
+    }
+    :last-child {
+      margin-left: 10px;
+    }
+  }
+}
+
+.profile__nav {
+  display: flex;
+  padding: 20px;
+  background-color: $dark_bg;
+  .profile__nav__btn {
+    margin: 0px 30px;
+    font-size: 14px;
+    color: rgba($color: white, $alpha: 0.5);
+  }
+}
+
+.profile__horizon {
+  background-color: #0f0f0f;
+  padding: 20px 23px;
+}
+
+.profile__body {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0px 23px;
+  .video {
+    width: 200px;
+    .video__thubnail {
+      width: 200px;
+    }
+  }
+}

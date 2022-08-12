@@ -1,7 +1,7 @@
 mixin videoMixin(video)
     div.video__thumbnail
         a(href=`/videos/${video.id}`) 
-            video(src=`/${video.videoUrl}`, width="320").content__video
+            video(src=`/${video.videoUrl}`, width="320px").content__video
     hgroup.video__info
         div.video__owner
             i.fa-solid.fa-circle-user
