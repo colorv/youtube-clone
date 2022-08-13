@@ -1,35 +1,30 @@
 header
-    a(href="").header__menu
-        i.fa-solid.fa-bars
-    a(href="/").logo-sm 
-        i.logo-sm__icon.fab.fa-youtube 
-        h1.logo-sm__text YouTube
-            sup KR 
     nav
-        ul
-            li 
-                form(action="/search", method="get").header__search 
-                    input(name="keyword", type="text", placeholder="검색").header__search__input
-                    button(type="submit").header__search__icon 
-                        i.fa-solid.fa-magnifying-glass
+        div.nav__left 
+            a(href="").header__menu
+                i.fa-solid.fa-bars
+            a(href="/").logo-sm 
+                i.logo-sm__icon.fab.fa-youtube 
+                h1.logo-sm__text YouTube
+                    sup KR 
+        div.nav__center
+            form(action="/search", method="get").header__search 
+                input(name="keyword", type="text", placeholder="검색").header__search__input
+                button(type="submit").header__search__icon 
+                    i.fa-solid.fa-magnifying-glass
+        div.nav__right
             if loggedIn
-                li
-                    a(href="/videos/upload")
-                        i.fa-solid.fa-video
-                li
-                    a(href="/users/logout")
-                        i.fa-solid.fa-arrow-right-from-bracket 
-                li 
-                    a(href="/users/edit")
-                        i.fa-solid.fa-user-pen
-                li 
-                    a(href=`/users/${loggedInUser._id}`)
-                        i.fa-solid.fa-circle-user
+                a(href="/videos/upload")
+                    i.fa-solid.fa-video
+                a(href="/users/logout")
+                    i.fa-solid.fa-arrow-right-from-bracket 
+                a(href="/users/edit")
+                    i.fa-solid.fa-user-pen
+                a(href=`/users/${loggedInUser._id}`)
+                    i.fa-solid.fa-circle-user
             else
-                li 
-                    a(href="/join")
-                        i.fa-solid.fa-user-plus
-                li 
-                    a(href="/login").header__login__btn  
-                        i.fa-solid.fa-circle-user
-                        span 로그인
+                a(href="/join")
+                    i.fa-solid.fa-user-plus
+                a(href="/login").header__login__btn  
+                    i.fa-solid.fa-circle-user
+                    span 로그인

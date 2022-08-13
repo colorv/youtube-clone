@@ -3,6 +3,9 @@ include mixins/video-m
 
 block content
     div.search
+        div.search__filter
+            i.fa-solid.fa-sliders
+            span 필터
         each video in videos
                 article.video__m
                     +videoMixin(video)

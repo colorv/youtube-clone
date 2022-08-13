@@ -4,61 +4,78 @@ header {
   display: flex;
   align-items: center;
   padding: 1px 20px;
-  border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.1);
-
-  .header__menu {
-    font-size: 20px;
-    margin-left: 8px;
-  }
   nav {
-    margin-left: auto;
-  }
-  ul {
     display: flex;
-    align-items: center;
-    li {
-      margin-left: 30px;
-      font-size: 14px;
-      i {
+    width: 100%;
+    .nav__left,
+    .nav__center,
+    .nav__right {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav__left {
+      width: 20%;
+      .header__menu {
         font-size: 20px;
+        margin-left: 8px;
       }
     }
-    .header__search {
-      display: flex;
-      align-items: center;
-      margin-left: auto;
-      margin-right: 50px;
-      background-color: $search_btn;
-      .header__search__input {
-        height: 35px;
-        width: 350px;
-        background-color: $search_bg;
-        color: white;
-        border: 1px solid $search_btn;
-      }
-      :focus {
-        outline: 1px solid $login_color;
-      }
-      .header__search__icon {
-        width: 55px;
-        height: 40px;
-        background-color: unset;
-        color: white;
-        border: none;
-        margin-left: 1px;
-      }
-    }
-    .header__login__btn {
-      display: flex;
-      align-items: center;
-      width: 68px;
-      padding: 7px 12px;
-      margin-right: 10px;
-      border: 1px solid $login_color;
-      color: $login_color;
-      span {
-        margin-left: 10px;
+    .nav__center {
+      width: 60%;
+      justify-content: center;
+      .header__search {
+        display: flex;
+        align-items: center;
+        width: 70%;
+        max-width: 600px;
+        min-width: 100px;
+        background-color: $search_btn;
+        .header__search__input {
+          height: 38px;
+          width: 100%;
+          padding-left: 10px;
+          font-size: 16px;
+          background-color: $search_bg;
+          color: white;
+          border: 1px solid $search_btn;
+        }
+        :focus {
+          outline: 1px solid $login_color;
+        }
+        .header__search__icon {
+          width: 55px;
+          height: 40px;
+          background-color: unset;
+          color: white;
+          border: none;
+          margin-left: 1px;
+        }
       }
     }
+    .nav__right {
+      width: 20%;
+      justify-content: flex-end;
+      a {
+        margin-left: 30px;
+        font-size: 14px;
+        i {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+.header__login__btn {
+  display: flex;
+  align-items: center;
+  width: 68px;
+  min-width: 68px;
+  padding: 7px 12px;
+  border: 1px solid $login_color;
+  color: $login_color;
+  span {
+    margin-left: 10px;
   }
 }

@@ -56,5 +56,6 @@ const videoInputTitle = document.querySelector(
 const titleHandler = (element) => {
   videoTitle.innerHTML = element.target.value;
 };
-
-videoInputTitle.addEventListener("input", titleHandler);
+if (videoTitle) {
+  videoInputTitle.addEventListener("input", titleHandler);
+}

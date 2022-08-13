@@ -1,6 +1,10 @@
+.main__watch {
+  display: flex;
+}
+
 .watch {
   min-width: 500px;
-  width: 60%;
+  width: 70%;
   margin: 25px;
   .watch-video {
     video {
@@ -121,8 +125,12 @@
   line-height: 20px;
 }
 
-.watch__video-list {
-  width: 30%;
+.watch__related-video {
+  width: 400px;
   margin: 25px 25px 25px 0px;
-  background-color: $grey_text;
+}
+
+.watch__related-video__list {
+  display: flex;
+  margin-bottom: 10px;
 }

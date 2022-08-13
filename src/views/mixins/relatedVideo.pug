@@ -1,0 +1,18 @@
+mixin videoMixin(video)
+    div.related-video__thumbnail
+        a(href=`/videos/${video.id}`) 
+            video(src=`/${video.videoUrl}`, width="320px").content__video
+    hgroup.related-video__info
+        div.related-video__text
+            div.related-video__title 
+                a(href=`/videos/${video.id}`) 
+                    h1.related-video__title--h1=video.title
+                button.related-video__btn
+                    i.fa-solid.fa-ellipsis-vertical
+            div.related-video__meta
+                div.related-video__owner-name 
+                    span=video.owner.username
+                div.related-video__meta__info 
+                    span.related-video__meta__views=`조회수 ${video.meta.views}회 `
+                    div.meta__block
+                    span.video__meta__time=`${video.createdAt}`

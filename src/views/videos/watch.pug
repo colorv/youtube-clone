@@ -1,5 +1,7 @@
 extends ../layout.pug
-include ../mixins/video.pug
+include ../mixins/relatedVideo.pug
+
+
 
 block content
     article.watch
@@ -41,4 +43,8 @@ block content
             div.watch-video__comment__write
                 i.fa-solid.fa-circle-user
                 input(name="comment", type="text", placeholder="댓글 추가..." ).watch-video__comment__input
-    article.watch__video-list            
+    article.watch__related-video
+        each item in allVideos
+            if String(video._id) != String(item._id)
+                div.watch__related-video__list
+                    +videoMixin(item)
