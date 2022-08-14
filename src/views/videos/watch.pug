@@ -7,6 +7,14 @@ block content
     article.watch
         div.watch-video
             video(src=`/${video.videoUrl}`, controls).content__video
+            div 
+                button#play Play 
+                button#mute Mute 
+                input#volume(type="range", step="0.1", min="0", max="1", value=0.5)
+                div 
+                    span#currentTime 0:00
+                    span  / 
+                    span#duration 0:00
         hgroup.watch-video__info
             div.watch-video__text
                 div.watch-video__title
@@ -48,3 +56,5 @@ block content
             if String(video._id) != String(item._id)
                 div.watch__related-video__list
                     +videoMixin(item)
+block script 
+    script(src="/static/js/videoPlayer.js") 

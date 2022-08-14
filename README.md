@@ -34,3 +34,16 @@
 - [x] Video Watch -> need Edit_Btn, Remove_Btn
 - [x] Video Upload
 - [x] Video Edit -> Edit/Upload Same structure -> Component (name: updateVideo ?)
+
+#### 수정 및 추가하기
+
+1. ```
+   &::placeholder {}
+   ```
+
+2. ```
+   +videoMixin()
+       +videoInfoMixin()
+   ```
+
+3. components - form
