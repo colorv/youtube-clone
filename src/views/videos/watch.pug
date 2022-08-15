@@ -5,16 +5,26 @@ include ../mixins/relatedVideo.pug
 
 block content
     article.watch
-        div.watch-video
-            video(src=`/${video.videoUrl}`, controls).content__video
-            div 
-                button#play Play 
-                button#mute Mute 
-                input#volume(type="range", step="0.1", min="0", max="1", value=0.5)
-                div 
-                    span#currentTime 0:00
-                    span  / 
-                    span#duration 0:00
+        div.watch-video#videoContainer
+            video(src=`/${video.videoUrl}`).content__video
+            div#videoController.videoController
+                div.videoController__time-line
+                    input#timeLine(type="range", step="1", min="0", value=0) 
+                div.videoController__btn
+                    div.videoController__btn__column
+                        span#play 
+                            i.fa-solid.fa-play
+                        div.volumeController
+                            span#mute
+                                i.fa-solid.fa-volume-low 
+                            input#volume.none(type="range", step="0.1", min="0", max="1", value=0.5)
+                        div.videoTime
+                            span#currentTime 0:00
+                            span.border-line /  
+                            span#duration 0:00
+                    div.videoController__btn__column
+                        span#fullScreen
+                            i.fa-solid.fa-expand
         hgroup.watch-video__info
             div.watch-video__text
                 div.watch-video__title
