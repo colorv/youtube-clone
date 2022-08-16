@@ -30,6 +30,9 @@
           &:focus {
             outline: none;
           }
+          &:hover {
+            height: 5px;
+          }
           &::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 5px;

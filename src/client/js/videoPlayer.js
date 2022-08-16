@@ -99,11 +99,11 @@ const timeFormat = (value) => {
   return formattedText;
 };
 const videoOnLoadedMetaData = () => {
-  duration.textContent = timeFormat(video.duration);
+  duration.innerText = timeFormat(video.duration);
   timeLine.max = Math.floor(video.duration);
 };
 const videoOnTimeUpdate = () => {
-  currentTime.textContent = timeFormat(video.currentTime);
+  currentTime.innerText = timeFormat(video.currentTime);
   timeLine.value = video.currentTime;
 };
 const timeLineOnChange = (event) => {
@@ -118,10 +118,7 @@ const hideController = () => {
   videoController.classList.add("hidden");
   video.classList.add("cursorHidden");
 };
-const videoOnMouseLeave = () => {
-  hideController();
-};
-const videoOnMouseMove = () => {
+const visibleController = () => {
   if (controllerTimeOut) {
     clearTimeout(controllerTimeOut);
     controllerTimeOut = null;
@@ -130,18 +127,91 @@ const videoOnMouseMove = () => {
   video.classList.remove("cursorHidden");
   controllerTimeOut = setTimeout(hideController, 3000);
 };
+const videoOnMouseLeave = () => {
+  hideController();
+};
 const videoOnPlay = () => {
   videoContainer.addEventListener("mouseleave", videoOnMouseLeave);
-  videoContainer.addEventListener("mousemove", videoOnMouseMove);
+  videoContainer.addEventListener("mousemove", visibleController);
   controllerTimeOut = setTimeout(hideController, 3000);
 };
 const videoOnPause = () => {
   videoContainer.removeEventListener("mouseleave", videoOnMouseLeave);
-  videoContainer.removeEventListener("mousemove", videoOnMouseMove);
+  videoContainer.removeEventListener("mousemove", visibleController);
   clearTimeout(controllerTimeOut);
   videoController.classList.remove("hidden");
 };
 
+// Key Event
+const keyEvent = (event) => {
+  const { key } = event;
+  if (key === " " || key === "k" || key === "ㅏ") {
+    event.preventDefault();
+    playOnClick();
+  }
+  if (key === "m" || key === "ㅡ") {
+    visibleController();
+    muteOnClick();
+  }
+  if (key === "f" || key === "ㄹ") {
+    fullScreenOnClick();
+  }
+  if (key === "ArrowRight") {
+    visibleController();
+    video.currentTime += 1;
+    videoOnTimeUpdate();
+  }
+  if (key === "ArrowLeft") {
+    visibleController();
+    video.currentTime -= 1;
+    videoOnTimeUpdate();
+  }
+};
+
+const volumeUpAndDown = (operator) => {
+  const volumeStep = 0.05;
+  if (operator === "+") {
+    currentVolume = +(currentVolume + volumeStep).toFixed(12);
+  }
+  if (operator === "-") {
+    currentVolume = +(currentVolume - volumeStep).toFixed(12);
+  }
+  video.volume = currentVolume;
+  volumeIconChange();
+};
+
+const volumeKeyEvent = (event) => {
+  const { key } = event;
+  if (key === "ArrowUp") {
+    event.preventDefault();
+    if (currentVolume < 1) {
+      visibleController();
+      volumeUpAndDown("+");
+    }
+  }
+  if (key === "ArrowDown") {
+    event.preventDefault();
+    const add = "add";
+    if (currentVolume > 0) {
+      visibleController();
+      volumeUpAndDown("-");
+    }
+  }
+};
+
+const volumeKeyRemove = () => {
+  document.removeEventListener("keydown", volumeKeyEvent);
+};
+
+const videoOnClick = () => {
+  document.addEventListener("keydown", volumeKeyEvent);
+};
+
+// View Event
+const videoOnEnded = () => {
+  const { id } = videoContainer.dataset;
+  fetch(`/api/videos/${id}/view`, { method: "POST" });
+};
 // *** Event Handle End. ***
 
 // --- Video EventListener ---
@@ -164,17 +234,8 @@ timeLine.addEventListener("input", timeLineOnChange);
 video.addEventListener("play", videoOnPlay);
 video.addEventListener("pause", videoOnPause);
 // keyboard
-
-//test
-document.addEventListener("keydown", (event) => {
-  if (event.key === " ") {
-    event.preventDefault();
-    playOnClick();
-  }
-  console.log(event.key);
-
-  // To Do
-  // - ArrowRight
-  // - ArrowLeft
-  // - up,down volume
-});
+document.addEventListener("keydown", keyEvent);
+document.addEventListener("selectionchange", volumeKeyRemove);
+videoContainer.addEventListener("click", videoOnClick);
+// View increase
+video.addEventListener("ended", videoOnEnded);
