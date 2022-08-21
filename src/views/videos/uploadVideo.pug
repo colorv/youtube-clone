@@ -23,6 +23,12 @@ block content
                         span.errorMessage=errorMessage
                 div.upload-video__form__file
                     div.file__image
+                        video#preview
+                        div#recordingBtn
+                            i.fa-solid.fa-circle
                     input(name="video", type="file", id="video", accept="video/*", required).file__video
                 div.upload-video__form__submit              
+                    button#recordingStartBtn 녹화
                     button(type="submit") 업로드
+block script 
+    script(src="/static/js/recorder.js") 

@@ -90,6 +90,21 @@
           height: 180px;
           background-color: black;
           border-radius: 5px 5px 0px 0px;
+          #recordingBtn {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            i {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 22px;
+              height: 22px;
+              border-radius: 50%;
+              border: 1px solid red;
+              color: red;
+            }
+          }
         }
         .file__video {
           height: 50px;
@@ -118,4 +133,8 @@
 .errorMessage {
   margin-top: 20px;
   color: tomato;
+}
+
+.hide {
+  visibility: hidden;
 }

@@ -1,4 +1,5 @@
 import "../scss/styles.scss";
+import regeneratorRuntime from "regenerator-runtime";
 
 const videoTime = document.querySelectorAll(".video__meta__time");
 
