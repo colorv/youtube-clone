@@ -1,19 +1,71 @@
+import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
+
 const recordingStartBtn = document.getElementById("recordingStartBtn");
 const recordingBtn = document.getElementById("recordingBtn");
 const recordingBtnIcon = recordingBtn.querySelector("i");
 const video = document.getElementById("preview");
 
-const constraints = { video: { width: 300, height: 150 }, audio: false };
+const constraints = { video: { width: 300, height: 180 }, audio: false };
 let stream;
 let recorder;
 let recordingFile;
 
-const fileDownload = () => {
+const videoEncoding = async () => {
+  const ffmpeg = createFFmpeg({
+    corePath: "https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js",
+    log: true,
+  });
+
+  await ffmpeg.load();
+
+  ffmpeg.FS("writeFile", "recording.webm", await fetchFile(recordingFile));
+
+  await ffmpeg.run("-i", "recording.webm", "output.mp4");
+  await ffmpeg.run(
+    "-i",
+    "recording.webm",
+    "-ss",
+    "00:00:01",
+    "-frames:v",
+    "1",
+    "thumbnail.jpg"
+  );
+
+  const mp4file = ffmpeg.FS("readFile", "output.mp4");
+  const thumbFile = ffmpeg.FS("readFile", "thumbnail.jpg");
+
+  const mp4Blob = new Blob([mp4file.buffer], { type: "video/mp4" });
+  const thumbBlob = new Blob([thumbFile.buffer], { type: "image/jpg" });
+
+  const mp4Url = URL.createObjectURL(mp4Blob);
+  const thumbUrl = URL.createObjectURL(thumbBlob);
+
+  const urlArray = [mp4Url, thumbUrl];
+  ffmpeg.FS("unlink", "recording.webm");
+  ffmpeg.FS("unlink", "output.mp4");
+  ffmpeg.FS("unlink", "thumbnail.jpg");
+  return urlArray;
+};
+
+const fileDownload = async () => {
+  const encodingFileUrl = await videoEncoding();
+
   const a = document.createElement("a");
-  a.href = recordingFile;
-  a.download = "recording-video.webm";
+  a.href = encodingFileUrl[0];
+  a.download = "recording.mp4";
   document.body.appendChild(a);
   a.click();
+  a.remove();
+
+  const thumbA = document.createElement("a");
+  thumbA.href = encodingFileUrl[1];
+  thumbA.download = "thumbnail.jpg";
+  document.body.appendChild(thumbA);
+  thumbA.click();
+  thumbA.remove();
+
+  URL.revokeObjectURL(recordingFile);
+  URL.revokeObjectURL(encodingFileUrl);
 };
 
 const recordingStart = () => {
@@ -36,7 +88,6 @@ const recordingStop = () => {
   recordingBtnIcon.classList = "fa-solid fa-circle";
   recordingBtnIcon.classList.add("hide");
   recordingBtn.removeEventListener("click", recordingStop);
-  recordingBtn.addEventListener("click", recordingStart);
   // 녹화 종료
   recorder.stop();
   video.pause();
@@ -48,12 +99,15 @@ const recordingStop = () => {
 const recordingPreview = async (event) => {
   // submit 막기
   event.preventDefault();
-  recordingBtnIcon.classList.remove("hide");
-  // getUserMedia를 통해 stream을 받아 프리뷰 화면 띄우기
-  stream = await navigator.mediaDevices.getUserMedia(constraints);
-  video.srcObject = stream;
-  video.play();
+  try {
+    stream = await navigator.mediaDevices.getUserMedia(constraints);
+    video.srcObject = stream;
+    video.play();
+    recordingBtnIcon.classList.remove("hide");
+    recordingBtn.addEventListener("click", recordingStart);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 recordingStartBtn.addEventListener("click", recordingPreview);
-recordingBtn.addEventListener("click", recordingStart);

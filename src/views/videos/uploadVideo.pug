@@ -22,12 +22,12 @@ block content
                     if errorMessage 
                         span.errorMessage=errorMessage
                 div.upload-video__form__file
-                    div.file__image
+                    div.file__video-preview
                         video#preview
                         div#recordingBtn
-                            i.fa-solid.fa-circle
-                    input(name="video", type="file", id="video", accept="video/*", required).file__video
-                div.upload-video__form__submit              
+                            i.fa-solid.fa-circle.hide
+                    input.file__video(name="video", type="file", id="video", accept="video/*", required)
+                div.upload-video__form__btn              
                     button#recordingStartBtn 녹화
                     button(type="submit") 업로드
 block script 
