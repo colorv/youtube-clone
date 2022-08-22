@@ -7,6 +7,13 @@
   //height: 255px;
   // margin: 0px 15px 55px 0px;
   .video__thumbnail {
+    .thumbnail {
+      display: flex;
+      width: 250px;
+      height: 140px;
+      background-size: cover;
+      background-position: center;
+    }
     video {
       width: 100%;
     }
@@ -76,6 +83,13 @@
   color: $grey_text;
   .video__thumbnail {
     margin-right: 20px;
+    .thumbnail {
+      display: flex;
+      width: 360px;
+      height: 202px;
+      background-size: cover;
+      background-position: center;
+    }
     video {
       width: 360px;
     }
@@ -130,6 +144,13 @@
 //relatedVideo (css)
 .related-video__thumbnail {
   height: 100px;
+  .thumbnail {
+    display: flex;
+    width: 180px;
+    height: 101px;
+    background-size: cover;
+    background-position: center;
+  }
   .content__video {
     width: 180px;
   }

@@ -101,6 +101,8 @@ const timeFormat = (value) => {
 const videoOnLoadedMetaData = () => {
   duration.innerText = timeFormat(video.duration);
   timeLine.max = Math.floor(video.duration);
+  // video Auto Play
+  video.play();
 };
 const videoOnTimeUpdate = () => {
   currentTime.innerText = timeFormat(video.currentTime);

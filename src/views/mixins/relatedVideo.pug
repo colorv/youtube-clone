@@ -1,7 +1,11 @@
 mixin videoMixin(video)
     div.related-video__thumbnail
-        a(href=`/videos/${video.id}`) 
-            video(src=`/${video.videoUrl}`, width="320px").content__video
+        if(video.thumbnailUrl)
+            a(href=`/videos/${video.id}`)
+                div.thumbnail(style=`background-image:url(/${video.thumbnailUrl})`) 
+        else
+            a(href=`/videos/${video.id}`) 
+                video(src=`/${video.videoUrl}`, width="320px").content__video
     hgroup.related-video__info
         div.related-video__text
             div.related-video__title 

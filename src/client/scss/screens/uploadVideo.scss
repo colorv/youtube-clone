@@ -80,6 +80,55 @@
         .video__input__hashtags {
           height: 40px;
         }
+        .thumbnail {
+          margin-top: 20px;
+          .thumbnail__header {
+            .thumbnail__header__title {
+              margin-bottom: 10px;
+            }
+            .thumbnail__header__description {
+              font-size: 14px;
+              color: $grey_text;
+              margin-bottom: 10px;
+            }
+          }
+          .thumbnail__upload {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            border-radius: 5px;
+            .imageBox {
+              display: flex;
+              width: 130px;
+              height: 80px;
+              background-color: $dark_bg;
+              border-radius: 5px;
+              &:first-child {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                color: $grey_text;
+                background-color: unset;
+                border: 1px dashed rgba($color: white, $alpha: 0.2);
+                i {
+                  font-size: 20px;
+                }
+                span {
+                  margin-top: 10px;
+                  font-size: 13px;
+                }
+              }
+              &:not(.imageBox:first-child):hover {
+                border: 1px solid white;
+              }
+            }
+          }
+          .thumbnail__input {
+            margin-top: 20px;
+          }
+        }
       }
       .upload-video__form__file {
         display: flex;
@@ -91,6 +140,11 @@
           background-color: black;
           border-radius: 5px 5px 0px 0px;
           position: relative;
+          #preview {
+            width: 301px;
+            height: 180px;
+            border-radius: 5px;
+          }
           #recordingBtn {
             display: flex;
             justify-content: center;

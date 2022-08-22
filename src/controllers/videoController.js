@@ -86,15 +86,21 @@ export const postUpload = async (req, res) => {
     session: {
       user: { _id },
     },
-    file,
+    files: { video, thumb },
   } = req;
+
+  const videoUrl = video[0].path;
+  if (thumb) {
+    const thumbnailUrl = thumb[0].path;
+  }
 
   try {
     const video = new Video({
       title,
       description,
       hashtags: Video.formatHashtags(hashtags),
-      videoUrl: file ? file.path : "",
+      videoUrl,
+      thumbnailUrl: thumb ? thumbnailUrl : "",
       owner: _id,
     });
     await video.save();

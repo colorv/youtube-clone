@@ -5,34 +5,48 @@ const recordingBtn = document.getElementById("recordingBtn");
 const recordingBtnIcon = recordingBtn.querySelector("i");
 const video = document.getElementById("preview");
 
-const constraints = { video: { width: 300, height: 180 }, audio: false };
 let stream;
 let recorder;
 let recordingFile;
+
+const constraints = { video: { width: 1920, height: 1080 }, audio: false };
+const files = {
+  input: "recording.webm",
+  output: "output.mp4",
+  thumb: "thumbnail.jpg",
+};
 
 const videoEncoding = async () => {
   const ffmpeg = createFFmpeg({
     corePath: "https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js",
     log: true,
   });
+  const loadingText = document.createElement("span");
+  loadingText.innerText = "인코딩중...";
+  recordingBtn.removeChild(recordingBtnIcon);
+  recordingBtn.appendChild(loadingText);
 
   await ffmpeg.load();
 
-  ffmpeg.FS("writeFile", "recording.webm", await fetchFile(recordingFile));
+  ffmpeg.FS("writeFile", files.input, await fetchFile(recordingFile));
 
-  await ffmpeg.run("-i", "recording.webm", "output.mp4");
+  await ffmpeg.run("-i", files.input, files.output);
   await ffmpeg.run(
     "-i",
-    "recording.webm",
+    files.input,
     "-ss",
     "00:00:01",
     "-frames:v",
     "1",
-    "thumbnail.jpg"
+    files.thumb
   );
 
-  const mp4file = ffmpeg.FS("readFile", "output.mp4");
-  const thumbFile = ffmpeg.FS("readFile", "thumbnail.jpg");
+  recordingBtn.removeChild(loadingText);
+  recordingBtn.appendChild(recordingBtnIcon);
+  loadingText.remove();
+
+  const mp4file = ffmpeg.FS("readFile", files.output);
+  const thumbFile = ffmpeg.FS("readFile", files.thumb);
 
   const mp4Blob = new Blob([mp4file.buffer], { type: "video/mp4" });
   const thumbBlob = new Blob([thumbFile.buffer], { type: "image/jpg" });
@@ -40,32 +54,25 @@ const videoEncoding = async () => {
   const mp4Url = URL.createObjectURL(mp4Blob);
   const thumbUrl = URL.createObjectURL(thumbBlob);
 
-  const urlArray = [mp4Url, thumbUrl];
-  ffmpeg.FS("unlink", "recording.webm");
-  ffmpeg.FS("unlink", "output.mp4");
-  ffmpeg.FS("unlink", "thumbnail.jpg");
-  return urlArray;
+  fileDownload(mp4Url, "recording.mp4");
+  fileDownload(thumbUrl, "thumbnail.jpg");
+
+  ffmpeg.FS("unlink", files.input);
+  ffmpeg.FS("unlink", files.output);
+  ffmpeg.FS("unlink", files.thumb);
+
+  URL.revokeObjectURL(recordingFile);
+  URL.revokeObjectURL(mp4Url);
+  URL.revokeObjectURL(thumbUrl);
 };
 
-const fileDownload = async () => {
-  const encodingFileUrl = await videoEncoding();
-
+const fileDownload = async (fileUrl, fileName) => {
   const a = document.createElement("a");
-  a.href = encodingFileUrl[0];
-  a.download = "recording.mp4";
+  a.href = fileUrl;
+  a.download = fileName;
   document.body.appendChild(a);
   a.click();
   a.remove();
-
-  const thumbA = document.createElement("a");
-  thumbA.href = encodingFileUrl[1];
-  thumbA.download = "thumbnail.jpg";
-  document.body.appendChild(thumbA);
-  thumbA.click();
-  thumbA.remove();
-
-  URL.revokeObjectURL(recordingFile);
-  URL.revokeObjectURL(encodingFileUrl);
 };
 
 const recordingStart = () => {
@@ -79,7 +86,7 @@ const recordingStart = () => {
 
   recorder.ondataavailable = (event) => {
     recordingFile = URL.createObjectURL(event.data);
-    fileDownload();
+    videoEncoding();
   };
 };
 

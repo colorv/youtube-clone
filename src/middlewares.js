@@ -38,8 +38,9 @@ export const videoUpload = (req, res, next) => {
   const videoMulter = multer({
     dest: "uploads/videos",
     limits: { fileSize: 100000000 },
-  });
-  videoMulter.single("video")(req, res, function (err) {
+  }).fields([{ name: "video" }, { name: "thumb" }]);
+
+  videoMulter(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       return res.status(400).render("videos/uploadVideo", {
         pageTitle: "Upload",
