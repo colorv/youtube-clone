@@ -10,6 +10,9 @@ const videoSchema = new mongoose.Schema({
   },
   videoUrl: { type: String, required: true },
   thumbnailUrl: { type: String },
+  comments: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Comment" },
+  ],
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
 });
 

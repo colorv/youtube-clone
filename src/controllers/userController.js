@@ -1,7 +1,6 @@
 import User from "../models/User";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
-import Video from "../models/video";
 
 // GET, POST - join
 export const getJoin = (req, res) => {

@@ -13,6 +13,8 @@ const fullScreenBtnIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoController = document.getElementById("videoController");
 
+const commentInput = document.getElementById("commentInput");
+
 let controllerTimeOut = null;
 let currentVolume = 0.5;
 video.volume = currentVolume;
@@ -214,6 +216,15 @@ const videoOnEnded = () => {
   const { id } = videoContainer.dataset;
   fetch(`/api/videos/${id}/view`, { method: "POST" });
 };
+
+// Input Focus(in,out) Event
+const inputOnFocusIn = () => {
+  document.removeEventListener("keydown", keyEvent);
+};
+const inputOnFocusOut = () => {
+  document.addEventListener("keydown", keyEvent);
+};
+
 // *** Event Handle End. ***
 
 // --- Video EventListener ---
@@ -241,3 +252,7 @@ document.addEventListener("selectionchange", volumeKeyRemove);
 videoContainer.addEventListener("click", videoOnClick);
 // View increase
 video.addEventListener("ended", videoOnEnded);
+
+// Input keyEvent - Block and UnBlock
+commentInput.addEventListener("focusin", inputOnFocusIn);
+commentInput.addEventListener("focusout", inputOnFocusOut);

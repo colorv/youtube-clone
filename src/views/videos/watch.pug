@@ -1,8 +1,6 @@
 extends ../layout.pug
 include ../mixins/relatedVideo.pug
 
-
-
 block content
     article.watch
         div.watch-video#videoContainer(data-id=video._id)
@@ -58,9 +56,23 @@ block content
         article.watch-video__comment
             div.watch-video__comment__text
                 span 댓글 0개
-            div.watch-video__comment__write
-                i.fa-solid.fa-circle-user
-                input(name="comment", type="text", placeholder="댓글 추가..." ).watch-video__comment__input
+            if loggedInUser
+                div.watch-video__comment__write
+                    i.fa-solid.fa-circle-user
+                    form#commentForm.watch-video__comment__form
+                        input#commentInput(name="comment", type="text", placeholder="댓글 추가..." ).watch-video__comment__input
+                        div#formBtn.watch-video__comment__submit.hidden
+                            i.fa-regular.fa-face-smile-beam
+                            div.watch-video__comment__submit-btn
+                                button#cancelBtn 취소
+                                button(disabled)#submitBtn 댓글
+            if !loggedInUser
+                a(href="/login") 
+                    div.watch-video__comment__write
+                            i.fa-solid.fa-circle-user
+                            form.watch-video__comment__form
+                                input(name="comment", type="text", placeholder="댓글 추가..." disabled).watch-video__comment__input.login-required
+
     article.watch__related-video
         each item in allVideos
             if String(video._id) != String(item._id)
@@ -68,3 +80,4 @@ block content
                     +videoMixin(item)
 block script 
     script(src="/static/js/videoPlayer.js") 
+    script(src="/static/js/videoComment.js")

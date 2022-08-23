@@ -186,21 +186,59 @@
   .watch-video__comment__write {
     display: flex;
     font-size: 40px;
-    .watch-video__comment__input {
-      width: 90%;
-      margin-left: 20px;
-      height: 20px;
-      background-color: unset;
-      border: none;
-      border-bottom: 1px solid rgba($color: white, $alpha: 0.15);
-      color: white;
-    }
-    ::placeholder {
-      color: $grey_text;
-    }
-    :focus {
-      outline: none;
-      border-bottom: 1px solid white;
+    .watch-video__comment__form {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin: 0px 20px;
+      .watch-video__comment__input {
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        background-color: unset;
+        border: none;
+        border-bottom: 1px solid rgba($color: white, $alpha: 0.15);
+        color: white;
+        &::placeholder {
+          color: $grey_text;
+        }
+        &:focus {
+          outline: none;
+          border-bottom: 1px solid white;
+        }
+        &.login-required {
+          cursor: text;
+        }
+      }
+      .watch-video__comment__submit {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        i {
+          margin-top: 5px;
+          font-size: 18px;
+          opacity: 0.7;
+        }
+        .watch-video__comment__submit-btn {
+          display: flex;
+          button {
+            width: 70px;
+            height: 35px;
+            border: none;
+            border-radius: 2px;
+            background-color: unset;
+            color: rgba($color: white, $alpha: 0.6);
+            &:last-child {
+              margin-left: 5px;
+              background-color: #303030;
+              color: $grey_text;
+              &.available {
+                color: black;
+                background-color: $blue;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
