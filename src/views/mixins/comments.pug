@@ -1,0 +1,20 @@
+mixin commentMixin(comment)
+    div.comment
+        div.comment-user
+            i.fa-solid.fa-circle-user
+        div.comment-text
+            div.comment-info
+                span.comment-info__user=comment.name
+                span.comment-info__createdAt=comment.createdAt
+            div.comment-textarea
+                span=comment.text
+            div.comment-btn
+                div.comment-btn__like
+                    i.fa-regular.fa-thumbs-up
+                    if comment.like > 0
+                        span=comment.like
+                div.comment-btn__dislike
+                    i.fa-regular.fa-thumbs-down
+                    if comment.disLike > 0
+                        span=comment.disLike
+                button.comment-btn__reply 답글

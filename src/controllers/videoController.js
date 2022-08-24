@@ -1,5 +1,6 @@
 import User from "../models/User";
 import Video from "../models/Video";
+import Comment from "../models/Comment";
 
 // Home page
 export const home = async (req, res) => {
@@ -16,7 +17,7 @@ export const home = async (req, res) => {
 // Watch Video
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id).populate("owner");
+  const video = await Video.findById(id).populate("owner").populate("comments");
   const allVideos = await Video.find({})
     .populate("owner")
     .sort({ createdAt: "desc" });
@@ -164,4 +165,42 @@ export const registerView = async (req, res) => {
   video.meta.views += 1;
   await video.save();
   return res.sendStatus(200);
+};
+
+// Create Comment
+export const createComment = async (req, res) => {
+  const {
+    params: { id },
+    body: { commentText },
+    session: {
+      user: { _id, name },
+    },
+  } = req;
+
+  // User
+  const user = await User.findById(_id);
+  if (!user) {
+    return res.sendStatus(404);
+  }
+  // Video
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+
+  // Comment
+  const comment = await Comment.create({
+    text: commentText,
+    owner: _id,
+    video: id,
+    name,
+  });
+
+  user.comments.push(comment._id);
+  user.save();
+
+  video.comments.push(comment._id);
+  video.save();
+
+  return res.sendStatus(201);
 };

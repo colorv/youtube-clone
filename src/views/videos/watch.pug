@@ -1,5 +1,6 @@
 extends ../layout.pug
 include ../mixins/relatedVideo.pug
+include ../mixins/comments.pug
 
 block content
     article.watch
@@ -55,7 +56,7 @@ block content
                     button 구독
         article.watch-video__comment
             div.watch-video__comment__text
-                span 댓글 0개
+                span=`댓글 ${video.comments.length}개`
             if loggedInUser
                 div.watch-video__comment__write
                     i.fa-solid.fa-circle-user
@@ -71,13 +72,15 @@ block content
                     div.watch-video__comment__write
                             i.fa-solid.fa-circle-user
                             form.watch-video__comment__form
-                                input(name="comment", type="text", placeholder="댓글 추가..." disabled).watch-video__comment__input.login-required
-
+                                input#commentInput(name="comment", type="text", placeholder="댓글 추가..." disabled).watch-video__comment__input.login-required
+            each comment in video.comments.reverse()
+                +commentMixin(comment)
     article.watch__related-video
         each item in allVideos
             if String(video._id) != String(item._id)
                 div.watch__related-video__list
                     +videoMixin(item)
 block script 
-    script(src="/static/js/videoPlayer.js") 
-    script(src="/static/js/videoComment.js")
+    script(src="/static/js/videoPlayer.js")
+    if loggedInUser
+        script(src="/static/js/videoComment.js")

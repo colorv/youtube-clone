@@ -8,6 +8,7 @@ const submitBtn = document.getElementById("submitBtn");
 // btn Disabled
 const btnDisabled = (boolean) => {
   if (boolean === true) {
+    commentInput.value = "";
     submitBtn.classList.remove("available");
     submitBtn.disabled = true;
   } else if (boolean === false) {
@@ -31,22 +32,30 @@ const inputOnChange = (event) => {
   }
 };
 
-// btn Event
-
 // cancel - Click Event
 const cancelBtnOnClick = (event) => {
   event.preventDefault();
   formBtn.classList.add("hidden");
-  commentInput.value = "";
   btnDisabled(true);
 };
 
 // submit - Submit Event
-const submitBtnOnClick = (event) => {
+const submitBtnOnClick = async (event) => {
   event.preventDefault();
-  const text = commentInput.value;
-  const video = videoContainer.dataset.id;
-  // To DO : 댓글 DB에 저장
+  const commentText = commentInput.value;
+  const videoId = videoContainer.dataset.id;
+  if (commentText === "") {
+    return;
+  }
+  await fetch(`/api/videos/${videoId}/comment`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ commentText }),
+  });
+  btnDisabled(true);
+  window.location.reload();
 };
 // *** Event Handle End. ***
 

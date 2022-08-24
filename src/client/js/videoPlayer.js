@@ -14,6 +14,7 @@ const videoContainer = document.getElementById("videoContainer");
 const videoController = document.getElementById("videoController");
 
 const commentInput = document.getElementById("commentInput");
+const submitBtn = document.getElementById("submitBtn");
 
 let controllerTimeOut = null;
 let currentVolume = 0.5;
@@ -27,9 +28,6 @@ const playOnClick = () => {
   } else {
     video.pause();
   }
-  playBtnIcon.classList = video.paused
-    ? "fa-solid fa-play"
-    : "fa-solid fa-pause";
 };
 
 // Volume
@@ -104,6 +102,11 @@ const videoOnLoadedMetaData = () => {
   duration.innerText = timeFormat(video.duration);
   timeLine.max = Math.floor(video.duration);
   // video Auto Play
+  video.muted = true;
+  volumeRange.value = 0;
+  volumeIconChange();
+  // 구글 정책상 음소거일때 오토플레이 가능
+  // https://developer.chrome.com/blog/autoplay/
   video.play();
 };
 const videoOnTimeUpdate = () => {
@@ -135,11 +138,13 @@ const videoOnMouseLeave = () => {
   hideController();
 };
 const videoOnPlay = () => {
+  playBtnIcon.classList = "fa-solid fa-pause";
   videoContainer.addEventListener("mouseleave", videoOnMouseLeave);
   videoContainer.addEventListener("mousemove", visibleController);
   controllerTimeOut = setTimeout(hideController, 3000);
 };
 const videoOnPause = () => {
+  playBtnIcon.classList = "fa-solid fa-play";
   videoContainer.removeEventListener("mouseleave", videoOnMouseLeave);
   videoContainer.removeEventListener("mousemove", visibleController);
   clearTimeout(controllerTimeOut);
@@ -218,11 +223,18 @@ const videoOnEnded = () => {
 };
 
 // Input Focus(in,out) Event
+const enterSubmit = (event) => {
+  if (event.key === "Enter") {
+    submitBtn.click();
+  }
+};
 const inputOnFocusIn = () => {
   document.removeEventListener("keydown", keyEvent);
+  document.addEventListener("keydown", enterSubmit);
 };
 const inputOnFocusOut = () => {
   document.addEventListener("keydown", keyEvent);
+  document.removeEventListener("keydown", enterSubmit);
 };
 
 // *** Event Handle End. ***

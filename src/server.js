@@ -17,6 +17,8 @@ app.set("views", process.cwd() + "/src/views");
 // 글로벌 미들웨어
 app.use(logger);
 app.use(express.urlencoded({ extended: true })); // form의 value를 가져오는 미들웨어
+// app.use(express.text()); // req로 들어오는 text를 이해하는 미들웨어
+app.use(express.json()); // 데이터를 받아서 string파일로 만들어주거나 String을 받아서 JS Obj로 바꿔준다.
 app.use(
   session({
     secret: process.env.COOKIE_SECRET,
