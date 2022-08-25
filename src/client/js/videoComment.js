@@ -5,6 +5,9 @@ const formBtn = document.getElementById("formBtn");
 const cancelBtn = document.getElementById("cancelBtn");
 const submitBtn = document.getElementById("submitBtn");
 
+// new
+const removeBtn = document.querySelectorAll("#removeBtn");
+
 // btn Disabled
 const btnDisabled = (boolean) => {
   if (boolean === true) {
@@ -57,6 +60,21 @@ const submitBtnOnClick = async (event) => {
   btnDisabled(true);
   window.location.reload();
 };
+
+// DeleteBtn - Comment Delete Event
+const deleteBtnOnClick = async (event) => {
+  const comment = event.path[4];
+  const commentId = comment.dataset.id;
+  const videoId = videoContainer.dataset.id;
+  await fetch(`/api/videos/${videoId}/comment-delete`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ commentId, videoId }),
+  });
+  comment.remove();
+};
 // *** Event Handle End. ***
 
 // --- Comment EventListener ---
@@ -66,3 +84,9 @@ commentInput.addEventListener("input", inputOnChange);
 // Btn
 cancelBtn.addEventListener("click", cancelBtnOnClick);
 commentForm.addEventListener("submit", submitBtnOnClick);
+// DeleteBtn
+if (removeBtn.length > 0) {
+  removeBtn.forEach((element) => {
+    element.addEventListener("click", deleteBtnOnClick);
+  });
+}

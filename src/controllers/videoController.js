@@ -177,17 +177,12 @@ export const createComment = async (req, res) => {
     },
   } = req;
 
-  // User
+  // User , Video
   const user = await User.findById(_id);
-  if (!user) {
-    return res.sendStatus(404);
-  }
-  // Video
   const video = await Video.findById(id);
-  if (!video) {
+  if (!user && !video) {
     return res.sendStatus(404);
   }
-
   // Comment
   const comment = await Comment.create({
     text: commentText,
@@ -197,10 +192,35 @@ export const createComment = async (req, res) => {
   });
 
   user.comments.push(comment._id);
-  user.save();
+  await user.save();
 
   video.comments.push(comment._id);
-  video.save();
+  await video.save();
 
   return res.sendStatus(201);
+};
+
+// Delete Comment
+export const deleteComment = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { commentId, videoId },
+  } = req;
+
+  const video = await Video.findById(videoId);
+  const user = await User.findById(_id);
+  const comment = await Comment.findById(commentId);
+  if (!user && !video && !comment) {
+    return res.sendStatus(404);
+  }
+  if (String(comment.owner) === String(_id)) {
+    await video.updateOne({ $pull: { comments: commentId } });
+    await user.updateOne({ $pull: { comments: commentId } });
+    await comment.remove();
+    return res.sendStatus(200);
+  } else {
+    return res.sendStatus(404);
+  }
 };

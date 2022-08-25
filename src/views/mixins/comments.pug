@@ -1,11 +1,16 @@
 mixin commentMixin(comment)
-    div.comment
+    div.comment(data-id = comment._id)
         div.comment-user
             i.fa-solid.fa-circle-user
         div.comment-text
             div.comment-info
                 span.comment-info__user=comment.name
-                span.comment-info__createdAt=comment.createdAt
+                span#commentTime.comment-info__createdAt=comment.createdAt
+                if loggedInUser
+                    if (String(loggedInUser._id) === String(comment.owner))
+                        div#settingBtn
+                            button#changeBtn.fa-solid.fa-pen
+                            button#removeBtn.fa-solid.fa-trash-can
             div.comment-textarea
                 span=comment.text
             div.comment-btn

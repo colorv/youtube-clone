@@ -124,7 +124,15 @@
       .video__meta {
         .video__meta__info {
           display: flex;
+          align-items: center;
           font-size: 12px;
+          .meta__block {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background-color: $grey_text;
+            margin: 0px 5px;
+          }
         }
         .video__owner {
           display: flex;

@@ -9,6 +9,7 @@ module.exports = {
     videoPlayer: BASE_PATH + "videoPlayer.js",
     recorder: BASE_PATH + "recorder.js",
     videoComment: BASE_PATH + "videoComment.js",
+    timeFormat: BASE_PATH + "timeFormat.js",
   },
   mode: "development",
   watch: true,

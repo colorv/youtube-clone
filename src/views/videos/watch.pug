@@ -32,7 +32,7 @@ block content
                 div.watch-video__meta
                     div.watch-video__meta__info 
                             span.watch-video__meta__views 조회수 #{video.meta.views}회&nbsp;
-                            span.watch-video__meta__date=`${video.createdAt}`
+                            span#videoDate.watch-video__meta__date=`${video.createdAt}`
                     div.watch-video__btn-container
                         i.fa-solid.fa-thumbs-up
                             span 좋아요
@@ -42,7 +42,15 @@ block content
                             span 공유
                         i.fa-solid.fa-download
                             span 저장
-                        i.fa-solid.fa-ellipsis
+                        if loggedInUser
+                            if (String(loggedInUser._id) === String(video.owner.id))
+                                a.videoDelete(href=`/videos/${video._id}/delete`) 
+                                    button.fa-solid.fa-trash-can
+                            else 
+                                i.fa-solid.fa-ellipsis
+                        else 
+                            i.fa-solid.fa-ellipsis
+                        
             div.watch-video__owner
                 div.watch-video__owner__row
                     i.watch-video__owner__icon.fa-solid.fa-circle-user
@@ -84,3 +92,4 @@ block script
     script(src="/static/js/videoPlayer.js")
     if loggedInUser
         script(src="/static/js/videoComment.js")
+    script(src="/static/js/timeFormat.js")

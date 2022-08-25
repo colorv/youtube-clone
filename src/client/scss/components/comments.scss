@@ -10,6 +10,7 @@
   }
   .comment-text {
     display: flex;
+    width: 100%;
     flex-direction: column;
     margin: 0px 20px 0px 10px;
     font-size: 14px;
@@ -22,6 +23,18 @@
         margin-left: 5px;
         font-size: 12px;
         color: $grey_text;
+      }
+      #settingBtn {
+        margin-left: auto;
+        button {
+          background-color: unset;
+          border: none;
+          color: white;
+          cursor: pointer;
+          &:last-child {
+            margin-left: 20px;
+          }
+        }
       }
     }
     .comment-textarea {

@@ -19,4 +19,4 @@ mixin videoMixin(video)
                 div.related-video__meta__info 
                     span.related-video__meta__views=`조회수 ${video.meta.views}회 `
                     div.meta__block
-                    span.video__meta__time=`${video.createdAt}`
+                    span#videoTime.video__meta__time=`${video.createdAt}`
