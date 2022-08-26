@@ -48,7 +48,7 @@ video 볼륨이 muted된 상태라면 새로고침 하더라도 오류가 없긴
 좋은 정책이라 생각이 들면서도 매번 사용자가 볼륨을 높여야하는 번거로움이 있어서 고민이 되는 부분이다.
 https://developer.chrome.com/blog/autoplay/
 
-#### - comment
+#### - comment Delete
 
 comment 삭제시 user와 video에 등록된 Obj ID를 모두 삭제 시켜주도록 작성했다.  
 자연스럽게 video도 모든 comment를 삭제 시키려고 생각해보다가  
@@ -57,3 +57,5 @@ comment 삭제시 user와 video에 등록된 Obj ID를 모두 삭제 시켜주�
 (같은 예는 아니지만 카카오톡 메세지 삭제시 그냥 삭제된 메세지로만 보이는걸로 기억함)
 
 #### - comment reload
+
+댓글을 작성했을때 새로고침 없이 추가되도록 코드를 작성하다가 createElement와 appendChild등 길어지는 코드를 보다보니 가독성이 너무 좋지 않았다. 가독성을 위해 댓글을 추가 하면 새로고침 하도록 작성은 했지만 댓글 수가 많아 진다 생각하면 로딩하는 시간도 길어지고 불쾌한 경험이 될 것 같아 수정 하기로 결정했다. react나 vue를 아직 배우지 않아서 대체 할 수 있는 web-component를 사용해봤다. 여전히 가독성이 좋지 않아 lit을 한번 사용해보면 좋을 것 같다.

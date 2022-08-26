@@ -81,8 +81,9 @@ block content
                             i.fa-solid.fa-circle-user
                             form.watch-video__comment__form
                                 input#commentInput(name="comment", type="text", placeholder="댓글 추가..." disabled).watch-video__comment__input.login-required
-            each comment in video.comments.reverse()
-                +commentMixin(comment)
+            div#commentContainer.watch-video__comment__section                                
+                each comment in video.comments.reverse()
+                    +commentMixin(comment)
     article.watch__related-video
         each item in allVideos
             if String(video._id) != String(item._id)
