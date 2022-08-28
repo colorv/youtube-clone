@@ -15,11 +15,25 @@ mixin commentMixin(comment)
                 span=comment.text
             div.comment-btn
                 div.comment-btn__like
-                    i.fa-regular.fa-thumbs-up
+                    if loggedInUser
+                        if (String(loggedInUser._id )=== String(comment.likeUser.filter(x => String(x) === String(loggedInUser._id))))
+                            button#likeBtn.fa-solid.fa-thumbs-up.clickBtn(data-clicked = "true")
+                        else 
+                            button#likeBtn.fa-regular.fa-thumbs-up(data-clicked = "false")
+                    else
+                        a(href="/login")  
+                            button#likeBtn.fa-regular.fa-thumbs-up(data-clicked = "false")
                     if comment.like > 0
                         span=comment.like
                 div.comment-btn__dislike
-                    i.fa-regular.fa-thumbs-down
+                    if loggedInUser
+                        if (String(loggedInUser._id )=== String(comment.disLikeUser.filter(x => String(x) === String(loggedInUser._id))))
+                            button#disLikeBtn.fa-solid.fa-thumbs-down.clickBtn(data-clicked = "true")
+                        else 
+                            button#disLikeBtn.fa-regular.fa-thumbs-down(data-clicked = "false")
+                    else
+                        a(href="/login")  
+                            button#disLikeBtn.fa-regular.fa-thumbs-down(data-clicked = "false")
                     if comment.disLike > 0
                         span=comment.disLike
                 button.comment-btn__reply 답글

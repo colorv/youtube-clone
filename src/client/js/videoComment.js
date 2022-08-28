@@ -6,6 +6,8 @@ const cancelBtn = document.getElementById("cancelBtn");
 const submitBtn = document.getElementById("submitBtn");
 const removeBtn = document.querySelectorAll("#removeBtn");
 const commentContainer = document.getElementById("commentContainer");
+const likeBtn = document.querySelectorAll("#likeBtn");
+const disLikeBtn = document.querySelectorAll("#disLikeBtn");
 
 // --- Web Component ---
 class Comment extends HTMLElement {
@@ -34,6 +36,7 @@ class Comment extends HTMLElement {
     changeBtn.classList.add("fa-solid", "fa-pen");
     const removeBtn = document.createElement("button");
     removeBtn.classList.add("fa-solid", "fa-trash-can");
+    removeBtn.addEventListener("click", deleteBtnOnClick);
     settingBtn.appendChild(changeBtn);
     settingBtn.appendChild(removeBtn);
 
@@ -51,13 +54,19 @@ class Comment extends HTMLElement {
     commentBtn.className = "comment-btn";
     const likeBtn = document.createElement("div");
     likeBtn.className = "comment-btn__like";
-    const likeBtnIcon = document.createElement("i");
+    const likeBtnIcon = document.createElement("button");
     likeBtnIcon.classList.add("fa-regular", "fa-thumbs-up");
+    likeBtnIcon.id = "likeBtn";
+    likeBtnIcon.dataset.clicked = "false";
+    likeBtnIcon.addEventListener("click", likeAndDisLikeHandle);
     likeBtn.appendChild(likeBtnIcon);
     const disLikeBtn = document.createElement("div");
     disLikeBtn.className = "comment-btn__dislike";
-    const disLikeBtnIcon = document.createElement("i");
+    const disLikeBtnIcon = document.createElement("button");
     disLikeBtnIcon.classList.add("fa-regular", "fa-thumbs-down");
+    disLikeBtnIcon.id = "disLikeBtn";
+    disLikeBtnIcon.dataset.clicked = "false";
+    disLikeBtnIcon.addEventListener("click", likeAndDisLikeHandle);
     disLikeBtn.appendChild(disLikeBtnIcon);
     const replyBtn = document.createElement("button");
     replyBtn.classList.add("comment-btn__reply");
@@ -125,10 +134,11 @@ const submitBtnOnClick = async (event) => {
   });
 
   if (response.status === 201) {
-    const name = await response.json();
+    const jsonInfo = await response.json();
     const newComment = document.createElement("custom-comment");
     newComment.setAttribute("input", commentText);
-    newComment.setAttribute("name", name);
+    newComment.setAttribute("name", jsonInfo.name);
+    newComment.setAttribute("data-id", jsonInfo.commetId);
     commentContainer.prepend(newComment);
   }
 
@@ -149,6 +159,60 @@ const deleteBtnOnClick = async (event) => {
   });
   comment.remove();
 };
+
+// Comment Like and DisLike event
+const likeAndDisLikeHandle = async (event) => {
+  const comment = event.path[4];
+  const commentId = comment.dataset.id;
+  const btn = event.target;
+  const btnContainer = event.path[1];
+  const fetchTarget = btn.id;
+  console.log("comment : ", comment);
+  console.log("comment ID : ", commentId);
+  console.log("Btn : ", btn);
+  console.log("btnContainer : ", btnContainer);
+  console.log("fetchTarget : ", fetchTarget);
+
+  let clicked = btn.dataset.clicked;
+  btn.classList.toggle("clickBtn");
+
+  if (clicked === "false") {
+    btn.dataset.clicked = "true";
+    btn.classList.toggle("fa-regular");
+    btn.classList.toggle("fa-solid");
+  }
+  if (clicked === "true") {
+    btn.dataset.clicked = "false";
+    btn.classList.toggle("fa-regular");
+    btn.classList.toggle("fa-solid");
+  }
+  clicked = btn.dataset.clicked;
+
+  const response = await fetch("/api/comment-disLike", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ commentId, clicked, fetchTarget }),
+  });
+  const count = await response.json();
+
+  if (count > 1) {
+    btnContainer.childNodes[1].innerText = count;
+  }
+  if (count === 1) {
+    if (clicked === "true") {
+      const countNumber = document.createElement("span");
+      countNumber.innerText = count;
+      btnContainer.appendChild(countNumber);
+    }
+    if (clicked === "false") {
+      btnContainer.childNodes[1].innerText = count;
+    }
+  }
+  if (count === 0) {
+    btnContainer.childNodes[1].remove();
+  }
+};
+
 // *** Event Handle End. ***
 
 // --- Comment EventListener ---
@@ -164,5 +228,17 @@ if (removeBtn.length > 0) {
     element.addEventListener("click", deleteBtnOnClick);
   });
 }
-// Web Component
+// likeBtn and disLikeBtn
+if (likeBtn.length > 0) {
+  likeBtn.forEach((element) => {
+    element.addEventListener("click", likeAndDisLikeHandle);
+  });
+}
+if (disLikeBtn.length > 0) {
+  disLikeBtn.forEach((element) => {
+    element.addEventListener("click", likeAndDisLikeHandle);
+  });
+}
+
+// --- Web Component ---
 customElements.define("custom-comment", Comment);

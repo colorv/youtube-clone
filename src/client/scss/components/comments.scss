@@ -47,9 +47,21 @@ custom-comment {
       .comment-btn__like,
       .comment-btn__dislike {
         font-size: 14px;
-        padding: 10px;
-        & span {
-          margin-left: 10px;
+        margin: 10px 0px;
+        button {
+          text-align: start;
+          background-color: unset;
+          border: none;
+          color: $grey_text;
+          margin-right: 5px;
+          cursor: pointer;
+          &.clickBtn {
+            color: white;
+          }
+        }
+        span {
+          margin-right: 10px;
+          color: $grey_text;
         }
       }
       .comment-btn__reply {

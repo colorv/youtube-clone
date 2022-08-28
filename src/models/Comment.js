@@ -7,7 +7,13 @@ const commentSchema = new mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
   video: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Video" },
   like: { type: Number, default: 0 },
+  likeUser: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
+  ],
   disLike: { type: Number, default: 0 },
+  disLikeUser: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
+  ],
 });
 
 const Comment = mongoose.model("Comment", commentSchema);

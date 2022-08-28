@@ -197,8 +197,7 @@ export const createComment = async (req, res) => {
   video.comments.push(comment._id);
   await video.save();
 
-  // return res.sendStatus(201);
-  return res.status(201).json(user.name);
+  return res.status(201).json({ name: user.name, commetId: comment._id });
 };
 
 // Delete Comment
@@ -223,5 +222,47 @@ export const deleteComment = async (req, res) => {
     return res.sendStatus(200);
   } else {
     return res.sendStatus(404);
+  }
+};
+
+// Comment Like and DisLike Counting handler
+export const commentLikeAndDislike = async (req, res) => {
+  const {
+    body: { commentId, clicked, fetchTarget },
+    session: {
+      user: { _id },
+    },
+  } = req;
+
+  const comment = await Comment.findById(commentId);
+  const user = await User.findById(_id);
+
+  if (fetchTarget === "likeBtn") {
+    if (clicked === "true") {
+      comment.like += 1;
+      await comment.updateOne({ $push: { likeUser: _id } });
+      await user.updateOne({ $push: { likeComments: _id } });
+    }
+    if (clicked === "false") {
+      comment.like -= 1;
+      await comment.updateOne({ $pull: { likeUser: _id } });
+      await user.updateOne({ $pull: { likeComments: _id } });
+    }
+    comment.save();
+    return res.status(200).json(comment.like);
+  }
+  if (fetchTarget === "disLikeBtn") {
+    if (clicked === "true") {
+      comment.disLike += 1;
+      await comment.updateOne({ $push: { disLikeUser: _id } });
+      await user.updateOne({ $push: { disLikeComments: _id } });
+    }
+    if (clicked === "false") {
+      comment.disLike -= 1;
+      await comment.updateOne({ $pull: { disLikeUser: _id } });
+      await user.updateOne({ $pull: { disLikeComments: _id } });
+    }
+    comment.save();
+    return res.status(200).json(comment.disLike);
   }
 };

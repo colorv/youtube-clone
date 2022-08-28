@@ -11,6 +11,8 @@ const userSchema = new mongoose.Schema({
   avatarUrl: String,
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
+  likeComments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+  disLikeComments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 // password hashing
