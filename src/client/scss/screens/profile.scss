@@ -12,12 +12,7 @@
     width: 50%;
     .profile__user__edit {
       position: relative;
-      .profile__image {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background-color: white;
-      }
+
       .profile__edit__button {
         display: flex;
         justify-content: center;

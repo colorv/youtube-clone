@@ -1,0 +1,67 @@
+.profile--blue {
+  background-color: $profile_bg_blue;
+}
+.profile--green {
+  background-color: $profile_bg_green;
+}
+.profile--purple {
+  background-color: $profile_bg_purple;
+}
+.profile--orange {
+  background-color: $profile_bg_orange;
+}
+.profile--brown {
+  background-color: $profile_bg_brown;
+}
+
+.profile__avatar,
+.profile__avatar__default,
+.profile__avatar--xs,
+.profile__avatar__default--xs,
+.profile__avatar--s,
+.profile__avatar__default--s,
+.profile__avatar--m,
+.profile__avatar__default--m,
+.profile__avatar--L,
+.profile__avatar__default--L {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  text-transform: uppercase;
+}
+
+.profile__avatar,
+.profile__avatar__default {
+  width: 80px;
+  height: 80px;
+  font-size: 35px;
+}
+
+.profile__avatar--xs,
+.profile__avatar__default--xs {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
+
+.profile__avatar--s,
+.profile__avatar__default--s {
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+}
+
+.profile__avatar--m,
+.profile__avatar__default--m {
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.profile__avatar--L,
+.profile__avatar__default--L {
+  width: 48px;
+  height: 48px;
+  font-size: 23px;
+}

@@ -5,24 +5,19 @@ block content
         article.join
             form(method="post").join__form
                 include partials/logo.pug
-                div.join__input 
-                    label(for="name") 이름
-                    input(name="name", id="name", type="text", required)
-                div.join__input 
-                    label(for="email") 이메일
-                    input(name="email", id="email" type="email", required) 
                 div.join__input
-                    label(for="username") 아이디
-                    input(name="username", id="username" type="text", required) 
+                    input(name="username", id="username" type="text", required, placeholder = "아이디") 
+                div.join__input
+                    input(name="firstName", id="firstName", type="text", required, placeholder = "성")
+                    input(name="name", id="name", type="text", required, placeholder = "이름")
                 div.join__input 
-                    label(for="password") 비밀번호
-                    input(name="password", id="password" type="password", required)
+                    input(name="email", id="email" type="email", require, placeholder = "이메일") 
                 div.join__input 
-                    label(for="password2") 비밀번호 재확인
-                    input(name="password2", id="password2" type="password", required)
+                    input(name="password", id="password" type="password", required, placeholder = "비밀번호")
                 div.join__input 
-                    label(for="loacation") 주소
-                    input(name="location", id="location" type="text", required) 
+                    input(name="password2", id="password2" type="password", required, placeholder = "비밀번호 재확인")
+                div.join__input 
+                    input(name="location", id="location" type="text", placeholder = "주소") 
                 include partials/error.pug
                 div.join__input 
                     input(type="submit", value="가입하기").join__submit

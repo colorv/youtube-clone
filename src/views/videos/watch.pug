@@ -1,6 +1,7 @@
 extends ../layout.pug
 include ../mixins/relatedVideo.pug
 include ../mixins/comments.pug
+include ../mixins/avatar.pug
 
 block content
     article.watch
@@ -53,7 +54,7 @@ block content
                         
             div.watch-video__owner
                 div.watch-video__owner__row
-                    i.watch-video__owner__icon.fa-solid.fa-circle-user
+                    +videoOwnerAvatarL(video)
                 div.watch-video__owner__row
                     div.watch-video__owner__info
                         span.watch-video__owner-name=video.owner.username
@@ -67,7 +68,7 @@ block content
                 span=`댓글 ${video.comments.length}개`
             if loggedInUser
                 div.watch-video__comment__write
-                    i.fa-solid.fa-circle-user
+                    +loginUserAvatarM(loggedInUser)
                     form#commentForm.watch-video__comment__form
                         input#commentInput(name="comment", type="text", placeholder="댓글 추가..." ).watch-video__comment__input
                         div#formBtn.watch-video__comment__submit.hidden

@@ -14,9 +14,50 @@ class Comment extends HTMLElement {
   connectedCallback() {
     const user = document.createElement("div");
     user.classList.add("comment-user");
-    const userIcon = document.createElement("i");
-    userIcon.classList.add("fa-solid", "fa-circle-user");
-    user.appendChild(userIcon);
+    const avatarUrl = this.getAttribute("avatarurl");
+    const profileColor = this.getAttribute("profilecolor");
+
+    if (avatarUrl) {
+      const imageUrl = document.createElement("img");
+      imageUrl.className = "profile__avatar--m";
+      imageUrl.src = "/" + this.getAttribute("avatarurl");
+      user.appendChild(imageUrl);
+    }
+    if (!avatarUrl) {
+      const defaultImage = document.createElement("span");
+
+      if (profileColor === "blue") {
+        defaultImage.className = "profile__avatar__default--m profile--blue";
+        defaultImage.innerText = `${this.getAttribute("name").match(
+          /^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/
+        )}`;
+      }
+      if (profileColor === "green") {
+        defaultImage.className = "profile__avatar__default--m profile--green";
+        defaultImage.innerText = `${this.getAttribute("name").match(
+          /^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/
+        )}`;
+      }
+      if (profileColor === "purple") {
+        defaultImage.className = "profile__avatar__default--m profile--purple";
+        defaultImage.innerText = `${this.getAttribute("name").match(
+          /^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/
+        )}`;
+      }
+      if (profileColor === "orange") {
+        defaultImage.className = "profile__avatar__default--m profile--orange";
+        defaultImage.innerText = `${this.getAttribute("name").match(
+          /^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/
+        )}`;
+      }
+      if (profileColor === "brown") {
+        defaultImage.className = "profile__avatar__default--m profile--brown";
+        defaultImage.innerText = `${this.getAttribute("name").match(
+          /^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/
+        )}`;
+      }
+      user.appendChild(defaultImage);
+    }
 
     const commentText = document.createElement("div");
     commentText.className = "comment-text";
@@ -139,6 +180,8 @@ const submitBtnOnClick = async (event) => {
     newComment.setAttribute("input", commentText);
     newComment.setAttribute("name", jsonInfo.name);
     newComment.setAttribute("data-id", jsonInfo.commetId);
+    newComment.setAttribute("avatarurl", jsonInfo.avatarUrl);
+    newComment.setAttribute("profilecolor", jsonInfo.profileColor);
     commentContainer.prepend(newComment);
   }
 
@@ -167,11 +210,6 @@ const likeAndDisLikeHandle = async (event) => {
   const btn = event.target;
   const btnContainer = event.path[1];
   const fetchTarget = btn.id;
-  console.log("comment : ", comment);
-  console.log("comment ID : ", commentId);
-  console.log("Btn : ", btn);
-  console.log("btnContainer : ", btnContainer);
-  console.log("fetchTarget : ", fetchTarget);
 
   let clicked = btn.dataset.clicked;
   btn.classList.toggle("clickBtn");

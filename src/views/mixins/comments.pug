@@ -1,7 +1,9 @@
+include ./avatar.pug
+
 mixin commentMixin(comment)
     div.comment(data-id = comment._id)
         div.comment-user
-            i.fa-solid.fa-circle-user
+            +loginUserAvatarM(loggedInUser)
         div.comment-text
             div.comment-info
                 span.comment-info__user=comment.name

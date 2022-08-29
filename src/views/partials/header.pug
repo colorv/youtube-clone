@@ -1,3 +1,5 @@
+include ../mixins/avatar.pug
+
 header
     nav
         div.nav__left 
@@ -21,10 +23,12 @@ header
                 a(href="/users/edit")
                     i.fa-solid.fa-user-pen
                 a(href=`/users/${loggedInUser._id}`)
-                    i.fa-solid.fa-circle-user
+                    +loginUserAvatarXs(loggedInUser)
             else
                 a(href="/join")
                     i.fa-solid.fa-user-plus
                 a(href="/login").header__login__btn  
                     i.fa-solid.fa-circle-user
                     span 로그인
+
+                    

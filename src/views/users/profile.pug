@@ -5,16 +5,22 @@ block content
     div.profile
         div.profile__header
             div.profile__header__column
-                div.profile__user__edit 
-                    img(src=`/${user.avatarUrl}`).profile__image
-                    a(href="edit").profile__edit__button
-                        i.fa-solid.fa-camera
+                div.profile__user__edit
+                    +watchProfileAvatar(user)
+                    
+                    if (String(user._id)===String(loggedInUser._id))
+                        a(href="edit").profile__edit__button
+                            i.fa-solid.fa-camera
                 div.profile__user__info
-                    span.profile__user__name=user.name
+                    if user.firstName
+                        span.profile__user__name=`${user.firstName}${user.name}`
+                    else
+                        span.profile__user__name=`${user.name}`
                     span.profile__user__subscriber 구독자 없음
             div.profile__header__column
-                button 채널 맞춤설정
-                button 동영상 관리
+                if (String(user._id)===String(loggedInUser._id))
+                    button 채널 맞춤설정
+                    button 동영상 관리
         nav.profile__nav
             div.profile__nav__btn 
                 span 홈
@@ -37,3 +43,5 @@ block content
                     +videoMixin(video)
             else 
                 li Sorry nothing found
+block script  
+    script(src="/static/js/timeFormat.js")

@@ -7,8 +7,13 @@ export const getJoin = (req, res) => {
   return res.render("join", { pageTitle: "Join" });
 };
 export const postJoin = async (req, res) => {
-  const { name, email, username, password, password2, location } = req.body;
+  const { firstName, name, email, username, password, password2, location } =
+    req.body;
   const pageTitle = "Join";
+
+  const colors = ["blue", "green", "purple", "orange", "brown"];
+  const randomColor = Math.floor(Math.random() * colors.length);
+
   // password 확인
   if (password !== password2) {
     return res.status(400).render("join", {
@@ -26,11 +31,13 @@ export const postJoin = async (req, res) => {
   }
   try {
     const user = await User.create({
+      firstName,
       name,
       email,
       username,
       password,
       location,
+      profileColor: colors[randomColor],
     });
     req.session.loggedIn = true;
     req.session.user = user;
@@ -130,7 +137,6 @@ export const githubLoginCallback = async (req, res) => {
         password: "",
         location: userData.location,
         socialOnly: true,
-        avatarUrl: userData.avatar_url,
       });
     }
     req.session.loggedIn = true;
@@ -182,21 +188,27 @@ export const kakaoLoginCallback = async (req, res) => {
         },
       })
     ).json();
-    //console.log("user : ", userData);
+    // console.log("user : ", userData);
     let user = await User.findOne({
       email: userData.kakao_account.email,
     });
     //console.log("user : ", user);
+
     if (!user) {
+      const fullName = userData.kakao_account.profile.nickname;
+      const firstName = fullName.match(/^([ㄱ-ㅎ|ㅏ-ㅣ|가-힣])/);
+      const lastName = fullName
+        .match(/(?!^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣])+([ㄱ-ㅎ|ㅏ-ㅣ|가-힣])/g)
+        .join("");
       const email = userData.kakao_account.email;
       const username = email.split("@");
       user = await User.create({
-        name: userData.kakao_account.profile.nickname,
+        firstName: firstName[0],
+        name: lastName,
         email,
         username: username[0],
         password: "",
         socialOnly: true,
-        avatarUrl: userData.kakao_account.profile.profile_image_url,
       });
     }
     req.session.loggedIn = true;
@@ -208,9 +220,9 @@ export const kakaoLoginCallback = async (req, res) => {
 };
 
 // Log Out
-export const logout = (req, res) => {
-  req.session.destroy();
-  return res.redirect("/");
+export const logout = async (req, res) => {
+  await req.session.destroy();
+  return res.status(200).redirect("/");
 };
 
 // GET, POST - Edit
@@ -224,7 +236,7 @@ export const postEdit = async (req, res) => {
     session: {
       user: { _id, email, username, avatarUrl },
     },
-    body: { newName, newEmail, newUsername, newLocation },
+    body: { newName, newFirstName, newEmail, newUsername, newLocation },
     file,
   } = req;
   const boolean = email !== newEmail || username !== newUsername;
@@ -255,6 +267,7 @@ export const postEdit = async (req, res) => {
   const updateUser = await User.findByIdAndUpdate(
     _id,
     {
+      firstName: newFirstName,
       name: newName,
       email: newEmail,
       username: newUsername,

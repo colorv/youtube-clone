@@ -1,4 +1,5 @@
 extends ../layout 
+include ../mixins/avatar.pug
 
 block content
     article.edit-profile
@@ -10,19 +11,22 @@ block content
                 div.form__input
                     label(for="avatar").form__input__label 사진
                     input(name="avatar", type="file", id="avatar", accept="image/*").form__input__avater
-                    img(src=`/${loggedInUser.avatarUrl}`, width="100", height="100").form__input__avater__img
+                    +loginUserAvatarL(loggedInUser)
+                div.form__input
+                    label(for="firstName").form__input__label 성
+                    input(name="newFirstName", type="text", id="firstName", value=loggedInUser.firstName).form__input__first-name
                 div.form__input
                     label(for="name").form__input__label 이름
-                    input(name="newName", type="text", id="name", required, placeholder="Name" , value=loggedInUser.name).form__input__name
+                    input(name="newName", type="text", id="name", required, value=loggedInUser.name).form__input__name
                 div.form__input
                     label(for="email").form__input__label 이메일
-                    input(name="newEmail", type="email", id="email", required, placeholder="Email", value=loggedInUser.email).form__input__email 
+                    input(name="newEmail", type="email", id="email", required, value=loggedInUser.email).form__input__email 
                 div.form__input
                     label(for="username").form__input__label 아이디
-                    input(name="newUsername", type="text", id="username" required, placeholder="User Name", value=loggedInUser.username).form__input__id 
+                    input(name="newUsername", type="text", id="username" required, value=loggedInUser.username).form__input__id 
                 div.form__input
                     label(for="location").form__input__label 장소
-                    input(name="newLocation", type="text", id="location" required, placeholder="Location", value=loggedInUser.location).form__input__location 
+                    input(name="newLocation", type="text", id="location" required, value=loggedInUser.location).form__input__location 
                 div.form__input.form__input--border-none
                     span.form__input__text 비밀번호
                     if (!loggedInUser.socialOnly)    
