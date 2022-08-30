@@ -16,7 +16,7 @@
 @import "./screens/login.scss";
 @import "./screens/join.scss";
 @import "./screens/watch.scss";
-@import "./screens/uploadVideo.scss";
+@import "./screens/uploadAndEditVideo.scss";
 @import "./screens/profile.scss";
 @import "./screens/editProfile.scss";
 @import "./screens/changePassword.scss";
@@ -36,4 +36,61 @@ body {
 }
 main {
   width: 100%;
+  display: flex;
+}
+
+@media screen and (max-width: 630px) {
+  .video {
+    width: 100%;
+  }
+  .side-bar--none {
+    display: none;
+  }
+  .home__video-list {
+    padding-left: 10%;
+  }
+  .header__search {
+    visibility: hidden;
+  }
+}
+
+@media screen and (min-width: 631px) and (max-width: 910px) {
+  .video {
+    width: 45%;
+  }
+  .header__search {
+    visibility: hidden;
+  }
+}
+
+@media screen and (min-width: 911px) and (max-width: 1170px) {
+  .video {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 1171px) and (max-width: 1450px) {
+  .video {
+    width: 23%;
+  }
+  .home__video-list {
+    padding-left: 3%;
+  }
+}
+
+@media screen and (min-width: 1451px) and (max-width: 1760px) {
+  .video {
+    width: 18%;
+  }
+  .home__video-list {
+    padding-left: 4%;
+  }
+}
+@media screen and (min-width: 1761px) and (max-width: 2560px) {
+  .video {
+    width: 15%;
+  }
+  .home__video-list {
+    padding-left: 5%;
+  }
 }

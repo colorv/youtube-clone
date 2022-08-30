@@ -1,5 +1,11 @@
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 
+// Video Upload - Title
+const videoTitle = document.querySelector(".upload-video__header__title");
+const videoInputTitle = document.querySelector(
+  ".video__input.video__input__title textarea"
+);
+// Recorder
 const recordingStartBtn = document.getElementById("recordingStartBtn");
 const recordingBtn = document.getElementById("recordingBtn");
 const recordingBtnIcon = recordingBtn.querySelector("i");
@@ -16,6 +22,13 @@ const files = {
   thumb: "thumbnail.jpg",
 };
 
+// --- Event ---
+// Title Event
+const titleHandler = (element) => {
+  videoTitle.innerHTML = element.target.value;
+};
+
+// Recorder Event
 const videoEncoding = async () => {
   const ffmpeg = createFFmpeg({
     corePath: "https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js",
@@ -117,4 +130,10 @@ const recordingPreview = async (event) => {
   }
 };
 
+// --- Video EventListener ---
+// Title
+if (videoTitle) {
+  videoInputTitle.addEventListener("input", titleHandler);
+}
+// Recorder
 recordingStartBtn.addEventListener("click", recordingPreview);

@@ -1,23 +1,24 @@
 extends layout
 
 block content
-    .main__body 
-        article.join
-            form(method="post").join__form
-                include partials/logo.pug
-                div.join__input
-                    input(name="username", id="username" type="text", required, placeholder = "아이디") 
-                div.join__input
-                    input(name="firstName", id="firstName", type="text", required, placeholder = "성")
-                    input(name="name", id="name", type="text", required, placeholder = "이름")
-                div.join__input 
-                    input(name="email", id="email" type="email", require, placeholder = "이메일") 
-                div.join__input 
-                    input(name="password", id="password" type="password", required, placeholder = "비밀번호")
-                div.join__input 
-                    input(name="password2", id="password2" type="password", required, placeholder = "비밀번호 재확인")
-                div.join__input 
-                    input(name="location", id="location" type="text", placeholder = "주소") 
-                include partials/error.pug
-                div.join__input 
-                    input(type="submit", value="가입하기").join__submit
+    main.main__join
+        div.main__body 
+            article.join
+                form(method="post").join__form
+                    include partials/logo.pug
+                    div.join__input
+                        input(name="username", id="username" type="text", required, placeholder = "아이디") 
+                    div.join__input 
+                        input(name="email", id="email" type="email", require, placeholder = "이메일") 
+                    div.join__input
+                        input(name="firstName", id="firstName", type="text", required, placeholder = "성")
+                        input(name="name", id="name", type="text", required, placeholder = "이름")
+                    div.join__input 
+                        input(name="channelName", id="channelName" type="text", required, placeholder = "채널 이름") 
+                    div.join__input 
+                        input(name="password", id="password" type="password", required, placeholder = "비밀번호")
+                    div.join__input 
+                        input(name="password2", id="password2" type="password", required, placeholder = "비밀번호 재확인")
+                    include partials/error.pug
+                    div.join__input 
+                        input(type="submit", value="가입하기").join__submit

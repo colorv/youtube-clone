@@ -1,95 +1,102 @@
 extends ../layout.pug
-include ../mixins/relatedVideo.pug
+include ../mixins/video.pug
 include ../mixins/comments.pug
 include ../mixins/avatar.pug
 
+
 block content
-    article.watch
-        div.watch-video#videoContainer(data-id=video._id)
-            video(src=`/${video.videoUrl}`).content__video
-            div#videoController.videoController
-                div.videoController__time-line
-                    input#timeLine(type="range", step="1", min="0", value=0) 
-                div.videoController__btn
-                    div.videoController__btn__column
-                        span#play 
-                            i.fa-solid.fa-play
-                        div.volumeController
-                            span#mute
-                                i.fa-solid.fa-volume-low 
-                            input#volume.none(type="range", step="0.05", min="0", max="1", value=0.5)
-                        div.videoTime
-                            span#currentTime 0:00
-                            span.border-line /  
-                            span#duration 0:00
-                    div.videoController__btn__column
-                        span#fullScreen
-                            i.fa-solid.fa-expand
-        hgroup.watch-video__info
-            div.watch-video__text
-                div.watch-video__title
-                    span.watch-video__hashtags=video.hashtags
-                    h1.watch-video__title--h1=video.title
-                div.watch-video__meta
-                    div.watch-video__meta__info 
-                            span.watch-video__meta__views 조회수 #{video.meta.views}회&nbsp;
-                            span#videoDate.watch-video__meta__date=`${video.createdAt}`
-                    div.watch-video__btn-container
-                        i.fa-solid.fa-thumbs-up
-                            span 좋아요
-                        i.fa-solid.fa-thumbs-down
-                            span 싫어요
-                        i.fa-solid.fa-share
-                            span 공유
-                        i.fa-solid.fa-download
-                            span 저장
-                        if loggedInUser
-                            if (String(loggedInUser._id) === String(video.owner.id))
-                                a.videoDelete(href=`/videos/${video._id}/delete`) 
-                                    button.fa-solid.fa-trash-can
+    main.main-watch
+        article.watch
+            div.watch-video#videoContainer(data-id=video._id)
+                video(src=`/${video.videoUrl}`).content__video
+                div#videoController.videoController
+                    div.videoController__time-line
+                        input#timeLine(type="range", step="1", min="0", value=0) 
+                    div.videoController__btn
+                        div.videoController__btn__column
+                            span#play 
+                                i.fa-solid.fa-play
+                            div.volumeController
+                                span#mute
+                                    i.fa-solid.fa-volume-low 
+                                input#volume.none(type="range", step="0.05", min="0", max="1", value=0.5)
+                            div.videoTime
+                                span#currentTime 0:00
+                                span.border-line /  
+                                span#duration 0:00
+                        div.videoController__btn__column
+                            span#fullScreen
+                                i.fa-solid.fa-expand
+            hgroup.watch-video__info
+                div.watch-video__text
+                    div.watch-video__title
+                        span.watch-video__hashtags=video.hashtags
+                        h1.watch-video__title--h1=video.title
+                    div.watch-video__meta
+                        div.watch-video__meta__info 
+                                span.watch-video__meta__views 조회수 #{video.meta.views}회&nbsp;
+                                span#videoDate.watch-video__meta__date=`${video.createdAt}`
+                        div.watch-video__btn-container
+                            i.fa-solid.fa-thumbs-up
+                                span 좋아요
+                            i.fa-solid.fa-thumbs-down
+                                span 싫어요
+                            i.fa-solid.fa-share
+                                span 공유
+                            i.fa-solid.fa-download
+                                span 저장
+                            if loggedInUser
+                                if (String(loggedInUser._id) === String(video.owner.id))
+                                    a.videoDelete(href=`/videos/${video._id}/edit`) 
+                                        button.fa-solid.fa-pen
+                                    a.videoDelete(href=`/videos/${video._id}/delete`) 
+                                        button.fa-solid.fa-trash-can
+                                else 
+                                    i.fa-solid.fa-ellipsis
                             else 
                                 i.fa-solid.fa-ellipsis
-                        else 
-                            i.fa-solid.fa-ellipsis
-                        
-            div.watch-video__owner
-                div.watch-video__owner__row
-                    +videoOwnerAvatarL(video)
-                div.watch-video__owner__row
-                    div.watch-video__owner__info
-                        span.watch-video__owner-name=video.owner.username
-                        span.watch-video__subscribe="구독자 0명"
-                        span.watch-video__hashtags=video.hashtags
-                        span.watch-video__description=video.description
-                div.watch-video__owner__row
-                    button 구독
-        article.watch-video__comment
-            div.watch-video__comment__text
-                span=`댓글 ${video.comments.length}개`
-            if loggedInUser
-                div.watch-video__comment__write
-                    +loginUserAvatarM(loggedInUser)
-                    form#commentForm.watch-video__comment__form
-                        input#commentInput(name="comment", type="text", placeholder="댓글 추가..." ).watch-video__comment__input
-                        div#formBtn.watch-video__comment__submit.hidden
-                            i.fa-regular.fa-face-smile-beam
-                            div.watch-video__comment__submit-btn
-                                button#cancelBtn 취소
-                                button(disabled)#submitBtn 댓글
-            if !loggedInUser
-                a(href="/login") 
+                            
+                div.watch-video__owner
+                    div.watch-video__owner__row
+                        +videoOwnerAvatarL(video)
+                    div.watch-video__owner__row
+                        div.watch-video__owner__info
+                            if video.owner.channelName
+                                span.watch-video__owner-name=video.owner.channelName
+                            else 
+                                span.watch-video__owner-name=video.owner.name
+                            span.watch-video__subscribe="구독자 0명"
+                            span.watch-video__hashtags=video.hashtags
+                            span.watch-video__description=video.description
+                    div.watch-video__owner__row
+                        button 구독
+            article.watch-video__comment
+                div.watch-video__comment__text
+                    span=`댓글 ${video.comments.length}개`
+                if loggedInUser
                     div.watch-video__comment__write
-                            i.fa-solid.fa-circle-user
-                            form.watch-video__comment__form
-                                input#commentInput(name="comment", type="text", placeholder="댓글 추가..." disabled).watch-video__comment__input.login-required
-            div#commentContainer.watch-video__comment__section                                
-                each comment in video.comments.reverse()
-                    +commentMixin(comment)
-    article.watch__related-video
-        each item in allVideos
-            if String(video._id) != String(item._id)
-                div.watch__related-video__list
-                    +videoMixin(item)
+                        +loginUserAvatarM(loggedInUser)
+                        form#commentForm.watch-video__comment__form
+                            input#commentInput(name="comment", type="text", placeholder="댓글 추가..." ).watch-video__comment__input
+                            div#formBtn.watch-video__comment__submit.hidden
+                                i.fa-regular.fa-face-smile-beam
+                                div.watch-video__comment__submit-btn
+                                    button#cancelBtn 취소
+                                    button(disabled)#submitBtn 댓글
+                if !loggedInUser
+                    a(href="/login") 
+                        div.watch-video__comment__write
+                                i.fa-solid.fa-circle-user
+                                form.watch-video__comment__form
+                                    input#commentInput(name="comment", type="text", placeholder="댓글 추가..." disabled).watch-video__comment__input.login-required
+                div#commentContainer.watch-video__comment__section
+                    each comment in comments.reverse()
+                        +commentMixin(comment)
+        article.watch__related-video
+            each item in allVideos
+                if String(video._id) != String(item._id)
+                    div.watch__related-video__list
+                        +videoMixinColumn(item)
 block script 
     script(src="/static/js/videoPlayer.js")
     if loggedInUser

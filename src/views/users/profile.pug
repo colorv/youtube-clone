@@ -2,46 +2,59 @@ extends ../layout
 include ../mixins/video
 
 block content
-    div.profile
-        div.profile__header
-            div.profile__header__column
-                div.profile__user__edit
-                    +watchProfileAvatar(user)
-                    
-                    if (String(user._id)===String(loggedInUser._id))
-                        a(href="edit").profile__edit__button
-                            i.fa-solid.fa-camera
-                div.profile__user__info
-                    if user.firstName
-                        span.profile__user__name=`${user.firstName}${user.name}`
-                    else
-                        span.profile__user__name=`${user.name}`
-                    span.profile__user__subscriber 구독자 없음
-            div.profile__header__column
-                if (String(user._id)===String(loggedInUser._id))
-                    button 채널 맞춤설정
-                    button 동영상 관리
-        nav.profile__nav
-            div.profile__nav__btn 
-                span 홈
-            div.profile__nav__btn
-                span 동영상
-            div.profile__nav__btn
-                span 재생목록
-            div.profile__nav__btn
-                span 채널
-            div.profile__nav__btn
-                span 정보
-            div.profile__nav__btn
-                span 
-                    i.fa-solid.fa-magnifying-glass
-        div.profile__horizon
-            span.profile__horizon__title 올린 동영상
-        div.profile__body
-            each video in user.videos
-                article.video
-                    +videoMixin(video)
-            else 
-                li Sorry nothing found
+    main.main-profile
+        include ../partials/side-bar.pug
+        div.profile
+            div.profile__header
+                div.profile__header__user
+                    div.profile__header__user__column
+                        div.profile__user__edit
+                            +watchProfileAvatar(user)
+                            
+                            if loggedInUser
+                                if (String(user._id)===String(loggedInUser._id))
+                                    a(href="edit").profile__edit__button
+                                        i.fa-solid.fa-camera
+                        div.profile__user__info
+                            if user.channelName
+                                span.profile__user__name=user.channelName
+                            else 
+                                if user.firstName
+                                    span.profile__user__name=`${user.firstName}${user.name}`
+                                else
+                                    span.profile__user__name=`${user.name}`
+                            span.profile__user__subscriber 구독자 없음
+                    div.profile__header__user__column
+                        if loggedInUser
+                            if (String(user._id)===String(loggedInUser._id))
+                                button 채널 맞춤설정
+                                button 동영상 관리
+                            else
+                                button.subscribe 구독
+                nav.profile__header__nav
+                    div.profile__header__nav__btn 
+                        span 홈
+                    div.profile__header__nav__btn
+                        span 동영상
+                    div.profile__header__nav__btn
+                        span 재생목록
+                    div.profile__header__nav__btn
+                        span 채널
+                    div.profile__header__nav__btn
+                        span 정보
+                    div.profile__header__nav__btn
+                        span 
+                            i.fa-solid.fa-magnifying-glass
+            div.profile__body
+                div.profile__body__title
+                    span.profile__horizon__title 업로드한 동영상
+                    span ►
+                    span 모두 재생
+                div.profile__body__content
+                    each video in user.videos
+                        article.video
+                            +videoMixinRow(video)
+                    else 
+                        span 채널에 콘텐츠가 없습니다.
 block script  
     script(src="/static/js/timeFormat.js")

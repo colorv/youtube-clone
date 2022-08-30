@@ -7,7 +7,7 @@ export const getJoin = (req, res) => {
   return res.render("join", { pageTitle: "Join" });
 };
 export const postJoin = async (req, res) => {
-  const { firstName, name, email, username, password, password2, location } =
+  const { firstName, name, email, username, password, password2, channelName } =
     req.body;
   const pageTitle = "Join";
 
@@ -36,7 +36,7 @@ export const postJoin = async (req, res) => {
       email,
       username,
       password,
-      location,
+      channelName,
       profileColor: colors[randomColor],
     });
     req.session.loggedIn = true;
@@ -130,13 +130,16 @@ export const githubLoginCallback = async (req, res) => {
     }
     let user = await User.findOne({ email: emailObj.email });
     if (!user) {
+      const colors = ["blue", "green", "purple", "orange", "brown"];
+      const randomColor = Math.floor(Math.random() * colors.length);
       user = await User.create({
         name: userData.name,
         email: emailObj.email,
         username: userData.login,
         password: "",
-        location: userData.location,
+        channelName: userData.name,
         socialOnly: true,
+        profileColor: colors[randomColor],
       });
     }
     req.session.loggedIn = true;
@@ -202,6 +205,8 @@ export const kakaoLoginCallback = async (req, res) => {
         .join("");
       const email = userData.kakao_account.email;
       const username = email.split("@");
+      const colors = ["blue", "green", "purple", "orange", "brown"];
+      const randomColor = Math.floor(Math.random() * colors.length);
       user = await User.create({
         firstName: firstName[0],
         name: lastName,
@@ -209,6 +214,7 @@ export const kakaoLoginCallback = async (req, res) => {
         username: username[0],
         password: "",
         socialOnly: true,
+        profileColor: colors[randomColor],
       });
     }
     req.session.loggedIn = true;
@@ -236,7 +242,7 @@ export const postEdit = async (req, res) => {
     session: {
       user: { _id, email, username, avatarUrl },
     },
-    body: { newName, newFirstName, newEmail, newUsername, newLocation },
+    body: { newName, newFirstName, newEmail, newUsername, newChannelName },
     file,
   } = req;
   const boolean = email !== newEmail || username !== newUsername;
@@ -271,13 +277,13 @@ export const postEdit = async (req, res) => {
       name: newName,
       email: newEmail,
       username: newUsername,
-      location: newLocation,
+      channelName: newChannelName,
       avatarUrl: file ? file.path : avatarUrl,
     },
     { new: true }
   );
   req.session.user = updateUser;
-  return res.redirect("/users/edit");
+  return res.status(200).redirect(`/users/${_id}`);
 };
 
 // GET, POST - Change Password

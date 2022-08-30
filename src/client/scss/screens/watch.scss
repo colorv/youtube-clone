@@ -1,5 +1,7 @@
-.main__watch {
+.main-watch {
   display: flex;
+  max-width: 1600px;
+  margin: 0px auto;
 }
 
 .watch {
@@ -143,9 +145,6 @@
       padding: 20px 0px;
       .watch-video__owner__row {
         display: flex;
-        .watch-video__owner__icon {
-          font-size: 45px;
-        }
         .watch-video__owner__info {
           display: flex;
           flex-direction: column;
@@ -162,13 +161,14 @@
         }
       }
       .watch-video__owner__row:first-child {
-        width: 10%;
+        width: 50px;
       }
       .watch-video__owner__row:nth-child(2) {
-        width: 50%;
+        width: 90%;
+        margin-left: 15px;
       }
       .watch-video__owner__row:last-child {
-        width: 40%;
+        width: 100px;
         justify-content: end;
         padding-right: 5px;
         button {

@@ -1,12 +1,16 @@
-.main--row {
-  display: flex;
+.main-upload,
+.main-editVideo {
+  height: 100vh;
 }
-.upload-video {
+
+.upload-video,
+.edit-video {
   width: 950px;
   background-color: $input_bg;
   border-radius: 10px;
   margin: auto;
-  .upload-video__header {
+  .upload-video__header,
+  .edit-video__header {
     display: flex;
     justify-content: space-between;
     padding: 20px;
@@ -17,7 +21,8 @@
       margin-right: 10px;
     }
   }
-  .upload-video__body {
+  .upload-video__body,
+  .edit-video__body {
     display: flex;
     padding: 0px 30px 70px 30px;
     position: relative;
@@ -26,20 +31,23 @@
       background-color: unset;
       border: none;
       color: white;
-    }
-    :focus {
-      outline: none;
+      &:focus {
+        outline: none;
+      }
     }
 
-    .upload-video__form {
+    .upload-video__form,
+    .edit-video__form {
       display: flex;
       width: 100%;
-      .upload-video__form__input {
+      .upload-video__form__input,
+      .edit-video__form__input {
         display: flex;
         flex-direction: column;
         width: 65%;
         margin-right: 30px;
-        .uload-video__form__title {
+        .upload-video__form__title,
+        .edit-video__form__title {
           font-size: 23px;
           font-weight: 500;
         }
@@ -130,7 +138,8 @@
           }
         }
       }
-      .upload-video__form__file {
+      .upload-video__form__file,
+      .edit-video__form__file {
         display: flex;
         flex-direction: column;
         width: 35%;
@@ -171,7 +180,8 @@
           color: $grey_text;
         }
       }
-      .upload-video__form__btn {
+      .upload-video__form__btn,
+      .edit-video__form__btn {
         position: absolute;
         bottom: 20px;
         right: 30px;

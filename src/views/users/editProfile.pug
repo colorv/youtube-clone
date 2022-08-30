@@ -2,39 +2,40 @@ extends ../layout
 include ../mixins/avatar.pug
 
 block content
-    article.edit-profile
-        div.edit-profile__header
-            h1.edit-profile__title 개인 정보
-        div.edit-profile__body
-            h1.edit-profile__body__title 기본 정보
-            form(method="post", enctype="multipart/form-data").edit-profile__body__form
-                div.form__input
-                    label(for="avatar").form__input__label 사진
-                    input(name="avatar", type="file", id="avatar", accept="image/*").form__input__avater
-                    +loginUserAvatarL(loggedInUser)
-                div.form__input
-                    label(for="firstName").form__input__label 성
-                    input(name="newFirstName", type="text", id="firstName", value=loggedInUser.firstName).form__input__first-name
-                div.form__input
-                    label(for="name").form__input__label 이름
-                    input(name="newName", type="text", id="name", required, value=loggedInUser.name).form__input__name
-                div.form__input
-                    label(for="email").form__input__label 이메일
-                    input(name="newEmail", type="email", id="email", required, value=loggedInUser.email).form__input__email 
-                div.form__input
-                    label(for="username").form__input__label 아이디
-                    input(name="newUsername", type="text", id="username" required, value=loggedInUser.username).form__input__id 
-                div.form__input
-                    label(for="location").form__input__label 장소
-                    input(name="newLocation", type="text", id="location" required, value=loggedInUser.location).form__input__location 
-                div.form__input.form__input--border-none
-                    span.form__input__text 비밀번호
-                    if (!loggedInUser.socialOnly)    
-                        span.form__input__password *********
-                            a(href="change-password").form__input__password__link
-                                i.fa-solid.fa-chevron-right
-                div.form__error
-                    if errorMessage
-                        span=errorMessage
-                div.form__submit 
-                    input(type="submit", value="변경").form__submit__btn
+    main.main-editProfile
+        article.edit-profile
+            div.edit-profile__header
+                h1.edit-profile__title 개인 정보
+            div.edit-profile__body
+                h1.edit-profile__body__title 기본 정보
+                form(method="post", enctype="multipart/form-data").edit-profile__body__form
+                    div.form__input
+                        label(for="avatar").form__input__label 사진
+                        input(name="avatar", type="file", id="avatar", accept="image/*").form__input__avater
+                        +loginUserAvatarL(loggedInUser)
+                    div.form__input
+                        label(for="firstName").form__input__label 성
+                        input(name="newFirstName", type="text", id="firstName", value=loggedInUser.firstName).form__input__first-name
+                    div.form__input
+                        label(for="name").form__input__label 이름
+                        input(name="newName", type="text", id="name", required, value=loggedInUser.name).form__input__name
+                    div.form__input
+                        label(for="email").form__input__label 이메일
+                        input(name="newEmail", type="email", id="email", required, value=loggedInUser.email).form__input__email 
+                    div.form__input
+                        label(for="username").form__input__label 아이디
+                        input(name="newUsername", type="text", id="username" required, value=loggedInUser.username).form__input__id 
+                    div.form__input
+                        label(for="channelName").form__input__label 채널이름
+                        input(name="newChannelName", type="text", id="channelName" required, value=loggedInUser.channelName).form__input__channel-name 
+                    div.form__input.form__input--border-none
+                        span.form__input__text 비밀번호
+                        if (!loggedInUser.socialOnly)    
+                            span.form__input__password *********
+                                a(href="change-password").form__input__password__link
+                                    i.fa-solid.fa-chevron-right
+                    div.form__error
+                        if errorMessage
+                            span=errorMessage
+                    div.form__submit 
+                        input(type="submit", value="변경").form__submit__btn

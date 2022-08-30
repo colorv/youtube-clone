@@ -1,13 +1,15 @@
 extends layout 
-include mixins/video-m
+include mixins/video
 
 block content
-    div.search
-        div.search__filter
-            i.fa-solid.fa-sliders
-            span 필터
-        each video in videos
-                article.video__m
-                    +videoMixin(video)
+    main.main-search
+        include partials/side-bar.pug
+        div.search
+            div.search__filter
+                i.fa-solid.fa-sliders
+                span 필터
+            each video in videos
+                    article.video__m
+                        +videoMixinSearch(video)
 block script  
     script(src="/static/js/timeFormat.js")

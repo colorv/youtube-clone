@@ -1,12 +1,17 @@
 include ./avatar.pug
 
 mixin commentMixin(comment)
+    
     div.comment(data-id = comment._id)
         div.comment-user
-            +loginUserAvatarM(loggedInUser)
+            a(href=`/users/${comment.owner._id}`) 
+                +loginUserAvatarM(comment.owner)
         div.comment-text
             div.comment-info
-                span.comment-info__user=comment.name
+                if comment.owner.channelName
+                    span.comment-info__user=comment.owner.channelName
+                else 
+                    span.comment-info__user=comment.owner.name
                 span#commentTime.comment-info__createdAt=comment.createdAt
                 if loggedInUser
                     if (String(loggedInUser._id) === String(comment.owner))

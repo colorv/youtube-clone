@@ -1,4 +1,4 @@
-mixin videoMixin(video)
+mixin videoMixinRow(video)
     div.video__thumbnail
         if(video.thumbnailUrl)
             a(href=`/videos/${video.id}`)
@@ -17,8 +17,66 @@ mixin videoMixin(video)
                     i.fa-solid.fa-ellipsis-vertical
             div.video__meta
                 div.video__owner-name 
-                    span=video.owner.username
+                    if video.owner.channelName
+                        span=video.owner.channelName
+                    else 
+                        span=video.owner.name
                 div.video__meta__info 
                     span.video__meta__views=`조회수 ${video.meta.views}회 `
                     div.meta__block
                     span#videoTime.video__meta__time=`${video.createdAt}`
+
+mixin videoMixinColumn(video)
+    div.related-video__thumbnail
+        if(video.thumbnailUrl)
+            a(href=`/videos/${video.id}`)
+                div.thumbnail(style=`background-image:url(/${video.thumbnailUrl})`) 
+        else
+            a(href=`/videos/${video.id}`) 
+                video(src=`/${video.videoUrl}`, width="320px").content__video
+    hgroup.related-video__info
+        div.related-video__text
+            div.related-video__title 
+                a(href=`/videos/${video.id}`) 
+                    h1.related-video__title--h1=video.title
+                button.related-video__btn
+                    i.fa-solid.fa-ellipsis-vertical
+            div.related-video__meta
+                div.related-video__owner-name 
+                    if video.owner.channelName
+                        span=video.owner.channelName
+                    else 
+                        span=video.owner.name
+                div.related-video__meta__info 
+                    span.related-video__meta__views=`조회수 ${video.meta.views}회 `
+                    div.meta__block
+                    span#videoTime.video__meta__time=`${video.createdAt}`
+
+mixin videoMixinSearch(video)
+    div.video__thumbnail
+        if(video.thumbnailUrl)
+            a(href=`/videos/${video.id}`)
+                div.thumbnail(style=`background-image:url(/${video.thumbnailUrl})`) 
+        else
+            a(href=`/videos/${video.id}`) 
+                video(src=`/${video.videoUrl}`, width="320px").content__video
+    hgroup.video__info
+        div.video__text
+            a(href=`/videos/${video.id}`) 
+                div.video__title 
+                    h1.video__title--h1=video.title
+                    button.video__btn
+                        i.fa-solid.fa-ellipsis-vertical
+            div.video__meta
+                div.video__meta__info 
+                    span.video__meta__views=`조회수 ${video.meta.views}회 `
+                    div.meta__block
+                    span#videoTime.video__meta__time=`${video.createdAt}`
+                div.video__owner
+                        +videoOwnerAvatarS(video)
+                        if video.owner.channelName
+                            span=video.owner.channelName
+                        else 
+                            span=video.owner.name
+                div.video__description
+                    p=`${video.description}`

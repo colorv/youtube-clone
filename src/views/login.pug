@@ -1,28 +1,29 @@
 extends layout
 
 block content
-    div.main__body
-        article.login
-            form(method="post").login__form  
-                include partials/logo.pug
-                div.login__id 
-                    i.fa-solid.fa-user 
-                    input(name="username", type="text", required, placeholder="아이디").login__input 
-                div.login__password
-                    i.fa-solid.fa-lock
-                    input(name="password", type="password", required, placeholder="비밀번호").login__input
-                include partials/error.pug
-                input(type="submit", value="로그인").login__submit
-                
-            div.social-login
-                span.social-login__title 소셜 로그인
-                a(href="/users/github/login")
-                    div.social-login__github 
-                        i.fa-brands.fa-github
-                        span 깃허브 로그인
-                a(href="/users/kakao/login")
-                    img(src="uploads/images/kakao_login_medium_wide.png").social-login-kakao
-        div.join 
-            span 비밀번호 찾기 | 
-            span 아이디 찾기 | 
-            a(href="/join") 회원가입
+    main.main__login
+        div.main__body
+            article.login
+                form(method="post").login__form  
+                    include partials/logo.pug
+                    div.login__id 
+                        i.fa-solid.fa-user 
+                        input(name="username", type="text", required, placeholder="아이디").login__input 
+                    div.login__password
+                        i.fa-solid.fa-lock
+                        input(name="password", type="password", required, placeholder="비밀번호").login__input
+                    include partials/error.pug
+                    input(type="submit", value="로그인").login__submit
+                    
+                div.social-login
+                    span.social-login__title 소셜 로그인
+                    a(href="/users/github/login")
+                        div.social-login__github 
+                            i.fa-brands.fa-github
+                            span 깃허브 로그인
+                    a(href="/users/kakao/login")
+                        img(src="uploads/images/kakao_login_medium_wide.png").social-login-kakao
+            div.join 
+                span 비밀번호 찾기 | 
+                span 아이디 찾기 | 
+                a(href="/join") 회원가입

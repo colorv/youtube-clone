@@ -1,12 +1,17 @@
 extends layout.pug
 include mixins/video
 
+
+
 block content
-    div.home__video-list
-        each video in videos 
-            article.video
-                +videoMixin(video)
-        else 
-            li Sorry nothing found
+    main
+        include partials/side-bar.pug
+        div.main-body
+            div.home__video-list
+                each video in videos 
+                    article.video
+                        +videoMixinRow(video)
+                else 
+                    span 비디오를 찾을 수 없습니다.
 block script  
     script(src="/static/js/timeFormat.js")

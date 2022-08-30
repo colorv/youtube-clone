@@ -7,7 +7,7 @@ module.exports = {
   entry: {
     main: BASE_PATH + "index.js",
     videoPlayer: BASE_PATH + "videoPlayer.js",
-    recorder: BASE_PATH + "recorder.js",
+    videoUpload: BASE_PATH + "videoUpload.js",
     videoComment: BASE_PATH + "videoComment.js",
     timeFormat: BASE_PATH + "timeFormat.js",
   },

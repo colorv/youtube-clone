@@ -1,77 +1,79 @@
-mixin loginUserAvatarXs(loggedInUser)
-    if loggedInUser.avatarUrl 
-        img(src=`/${loggedInUser.avatarUrl}`).profile__avatar--xs
+mixin loginUserAvatarXs(user)
+    if user.avatarUrl 
+        img(src=`/${user.avatarUrl}`).profile__avatar--xs
     else
-        if loggedInUser.profileColor === "blue"
-            span.profile__avatar__default--xs.profile--blue=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "green"
-            span.profile__avatar__default--xs.profile--green=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "purple"
-            span.profile__avatar__default--xs.profile--purple=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "orange"
-            span.profile__avatar__default--xs.profile--orange=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "brown"
-            span.profile__avatar__default--xs.profile--brown=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+        if user.profileColor === "blue"
+            span.profile__avatar__default--xs.profile--blue=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+        if user.profileColor === "green"
+            span.profile__avatar__default--xs.profile--green=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+        if user.profileColor === "purple"
+            span.profile__avatar__default--xs.profile--purple=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+        if user.profileColor === "orange"
+            span.profile__avatar__default--xs.profile--orange=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+        if user.profileColor === "brown"
+            span.profile__avatar__default--xs.profile--brown=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
 
-mixin loginUserAvatarM(loggedInUser)
-    if loggedInUser.avatarUrl 
-        img(src=`/${loggedInUser.avatarUrl}`).profile__avatar--m
+mixin loginUserAvatarM(user)
+    if user.avatarUrl 
+        img(src=`/${user.avatarUrl}`).profile__avatar--m
     else
-        if loggedInUser.profileColor === "blue"
-            span.profile__avatar__default--m.profile--blue=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "green"
-            span.profile__avatar__default--m.profile--green=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "purple"
-            span.profile__avatar__default--m.profile--purple=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "orange"
-            span.profile__avatar__default--m.profile--orange=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "brown"
-            span.profile__avatar__default--m.profile--brown=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+        if user.profileColor === "blue"
+            span.profile__avatar__default--m.profile--blue=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+        if user.profileColor === "green"
+            span.profile__avatar__default--m.profile--green=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+        if user.profileColor === "purple"
+            span.profile__avatar__default--m.profile--purple=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+        if user.profileColor === "orange"
+            span.profile__avatar__default--m.profile--orange=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+        if user.profileColor === "brown"
+            span.profile__avatar__default--m.profile--brown=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
 
-mixin loginUserAvatarL(loggedInUser)
-    if loggedInUser.avatarUrl 
-        img(src=`/${loggedInUser.avatarUrl}`).profile__avatar--L
+mixin loginUserAvatarL(user)
+    if user.avatarUrl 
+        img(src=`/${user.avatarUrl}`).profile__avatar--L
     else
-        if loggedInUser.profileColor === "blue"
-            span.profile__avatar__default--L.profile--blue=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "green"
-            span.profile__avatar__default--L.profile--green=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "purple"
-            span.profile__avatar__default--L.profile--purple=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "orange"
-            span.profile__avatar__default--L.profile--orange=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "brown"
-            span.profile__avatar__default--L.profile--brown=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`            
+        if user.profileColor === "blue"
+            span.profile__avatar__default--L.profile--blue=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+        if user.profileColor === "green"
+            span.profile__avatar__default--L.profile--green=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+        if user.profileColor === "purple"
+            span.profile__avatar__default--L.profile--purple=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+        if user.profileColor === "orange"
+            span.profile__avatar__default--L.profile--orange=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+        if user.profileColor === "brown"
+            span.profile__avatar__default--L.profile--brown=`${(user.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`            
 
-mixin videoOwnerAvatarL(video)
-    if loggedInUser.avatarUrl 
-        img(src=`/${loggedInUser.avatarUrl}`).profile__avatar--L
-    else
-        if loggedInUser.profileColor === "blue"
-            span.profile__avatar__default--L.profile--blue=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "green"
-            span.profile__avatar__default--L.profile--green=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "purple"
-            span.profile__avatar__default--L.profile--purple=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "orange"
-            span.profile__avatar__default--L.profile--orange=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if loggedInUser.profileColor === "brown"
-            span.profile__avatar__default--L.profile--brown=`${(loggedInUser.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+mixin videoOwnerAvatarL(user)
+    a(href=`/users/${user.owner._id}`) 
+        if user.owner.avatarUrl 
+            img(src=`/${user.owner.avatarUrl}`).profile__avatar--L
+        else
+            if user.owner.profileColor === "blue"
+                span.profile__avatar__default--L.profile--blue=`${(user.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+            if user.owner.profileColor === "green"
+                span.profile__avatar__default--L.profile--green=`${(user.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+            if user.owner.profileColor === "purple"
+                span.profile__avatar__default--L.profile--purple=`${(user.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+            if user.owner.profileColor === "orange"
+                span.profile__avatar__default--L.profile--orange=`${(user.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+            if user.owner.profileColor === "brown"
+                span.profile__avatar__default--L.profile--brown=`${(user.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
 
-mixin videoOwnerAvatarS(video)
-    if video.owner.avatarUrl 
-                img(src=`/${video.owner.avatarUrl}`).profile__avatar--s
-    else
-        if video.owner.profileColor === "blue"
-            span.profile__avatar__default--s.profile--blue=`${(video.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if video.owner.profileColor === "green"
-            span.profile__avatar__default--s.profile--green=`${(video.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if video.owner.profileColor === "purple"
-            span.profile__avatar__default--s.profile--purple=`${(video.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if video.owner.profileColor === "orange"
-            span.profile__avatar__default--s.profile--orange=`${(video.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
-        if video.owner.profileColor === "brown"
-            span.profile__avatar__default--s.profile--brown=`${(video.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+mixin videoOwnerAvatarS(user)
+    a(href=`/users/${user.owner._id}`) 
+        if user.owner.avatarUrl 
+            img(src=`/${user.owner.avatarUrl}`).profile__avatar--s
+        else
+            if user.owner.profileColor === "blue"
+                span.profile__avatar__default--s.profile--blue=`${(user.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+            if user.owner.profileColor === "green"
+                span.profile__avatar__default--s.profile--green=`${(user.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+            if user.owner.profileColor === "purple"
+                span.profile__avatar__default--s.profile--purple=`${(user.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+            if user.owner.profileColor === "orange"
+                span.profile__avatar__default--s.profile--orange=`${(user.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
+            if user.owner.profileColor === "brown"
+                span.profile__avatar__default--s.profile--brown=`${(user.owner.name).match(/^[a-zA-Z]|[ㄱ-ㅎ가-힣]{2}/)}`
 
 mixin watchProfileAvatar(user)
     if user.avatarUrl 

@@ -18,6 +18,8 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner").populate("comments");
+  const comments = await Comment.find({ video: id }).populate("owner");
+
   const allVideos = await Video.find({})
     .populate("owner")
     .sort({ createdAt: "desc" });
@@ -29,6 +31,7 @@ export const watch = async (req, res) => {
     pageTitle: video.title,
     video,
     allVideos,
+    comments,
   });
 };
 
@@ -197,14 +200,12 @@ export const createComment = async (req, res) => {
   video.comments.push(comment._id);
   await video.save();
 
-  return res
-    .status(201)
-    .json({
-      name: user.name,
-      avatarUrl: user.avatarUrl,
-      profileColor: user.profileColor,
-      commetId: comment._id,
-    });
+  return res.status(201).json({
+    name: user.name,
+    avatarUrl: user.avatarUrl,
+    profileColor: user.profileColor,
+    commetId: comment._id,
+  });
 };
 
 // Delete Comment

@@ -1,46 +1,48 @@
 extends ../layout
 
 block content
-    div.upload-video
-        div.upload-video__header
-            p.upload-video__header__title
-            a(href="/").exit-btn 
-                i.fa-solid.fa-xmark
-        div.upload-video__body
-            form(method="post" enctype="multipart/form-data").upload-video__form
-                div.upload-video__form__input
-                    span.uload-video__form__title 세부정보
-                    div.video__input.video__input__title 
-                        label(for="title")="제목(필수 항목)"
-                        textarea(name="title", id="title" placeholder="동영상을 설명하는 제목 추가", required, maxlength="100", rows="3")
-                    div.video__input.video__input__description 
-                        label(for="description") 설명
-                        textarea(name="description", id="description", placeholder="시청자에게 동영상에 대해 이야기하기", required, maxlength="5000", rows="10")
-                    div.video__input.video__input__hashtags
-                        label(for="hashtags") 해시태그
-                        input(name="hashtags", type="text", id="hashtags", placeholder="해시태그 추가", required)
-                    div.thumbnail
-                        div.thumbnail__header
-                            h1.thumbnail__header__title 미리보기 이미지
-                            p.thumbnail__header__description 동영상의 내용을 알려주는 사진을 업로드하세요. 시청자의 시선을 사로잡을만한 이미지를 사용해 보세요.
-                        div.thumbnail__upload
-                            div.imageBox
-                                i.fa-solid.fa-image
-                                span 미리보기 이미지 업로드
-                            div.imageBox
-                            div.imageBox
-                            div.imageBox
-                        input.thumbnail__input(name="thumb", type="file", id="thumb", accept="image/*")    
-                    if errorMessage 
-                        span.errorMessage=errorMessage
-                div.upload-video__form__file
-                    div.file__video-preview
-                        video#preview
-                        div#recordingBtn
-                            i.fa-solid.fa-circle.hide
-                    input.file__video(name="video", type="file", id="video", accept="video/*", required)
-                div.upload-video__form__btn              
-                    button#recordingStartBtn 녹화
-                    button(type="submit") 업로드
+    main.main-upload
+        div.upload-video
+            div.upload-video__header
+                p.upload-video__header__title
+                a(href="/").exit-btn 
+                    i.fa-solid.fa-xmark
+            div.upload-video__body
+                form(method="post" enctype="multipart/form-data").upload-video__form
+                    div.upload-video__form__input
+                        span.upload-video__form__title 세부정보
+                        div.video__input.video__input__title 
+                            label(for="title")="제목(필수 항목)"
+                            textarea(name="title", id="title" placeholder="동영상을 설명하는 제목 추가", required, maxlength="100", rows="3")
+                        div.video__input.video__input__description 
+                            label(for="description") 설명
+                            textarea(name="description", id="description", placeholder="시청자에게 동영상에 대해 이야기하기", required, maxlength="5000", rows="10")
+                        div.video__input.video__input__hashtags
+                            label(for="hashtags") 해시태그
+                            input(name="hashtags", type="text", id="hashtags", placeholder="해시태그 추가", required)
+                        div.thumbnail
+                            div.thumbnail__header
+                                h1.thumbnail__header__title 미리보기 이미지
+                                p.thumbnail__header__description 동영상의 내용을 알려주는 사진을 업로드하세요. 시청자의 시선을 사로잡을만한 이미지를 사용해 보세요.
+                            div.thumbnail__upload
+                                div.imageBox
+                                    i.fa-solid.fa-image
+                                    span 미리보기 이미지 업로드
+                                div.imageBox
+                                div.imageBox
+                                div.imageBox
+                            input.thumbnail__input(name="thumb", type="file", id="thumb", accept="image/*")    
+                        if errorMessage 
+                            span.errorMessage=errorMessage
+                    div.upload-video__form__file
+                        div.file__video-preview
+                            video#preview
+                            div#recordingBtn
+                                i.fa-solid.fa-circle.hide
+                        input.file__video(name="video", type="file", id="video", accept="video/*", required)
+                    div.upload-video__form__btn              
+                        button#recordingStartBtn 녹화
+                        button(type="submit") 업로드
 block script 
-    script(src="/static/js/recorder.js") 
+    script(src="/static/js/videoUpload.js") 
+    

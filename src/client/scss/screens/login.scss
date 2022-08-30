@@ -1,3 +1,7 @@
+.main__login {
+  height: 100vh;
+}
+
 .main__body {
   display: flex;
   flex-direction: column;
@@ -30,14 +34,15 @@
       background-color: unset;
       color: white;
       border: none;
+      &::placeholder {
+        color: white;
+        opacity: 0.5;
+      }
+      &:focus {
+        outline: none;
+      }
     }
-    ::placeholder {
-      color: white;
-      opacity: 0.5;
-    }
-    :focus {
-      outline: none;
-    }
+
     .login__password {
       margin-bottom: 30px;
     }

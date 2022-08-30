@@ -149,6 +149,7 @@ const videoOnPause = () => {
   videoContainer.removeEventListener("mousemove", visibleController);
   clearTimeout(controllerTimeOut);
   videoController.classList.remove("hidden");
+  video.classList.remove("cursorHidden");
 };
 
 // Key Event
