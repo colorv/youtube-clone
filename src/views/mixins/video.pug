@@ -1,8 +1,8 @@
 mixin videoMixinRow(video)
     div.video__thumbnail
-        if(video.thumbnailUrl)
+        if video.thumbnailUrl
             a(href=`/videos/${video.id}`)
-                div.thumbnail(style=`background-image:url(/${video.thumbnailUrl})`) 
+                video.thumbnail(width="320px", style=`background-image:url(/${video.thumbnailUrl})`)
         else
             a(href=`/videos/${video.id}`) 
                 video(src=`/${video.videoUrl}`, width="320px").content__video
@@ -28,7 +28,7 @@ mixin videoMixinRow(video)
 
 mixin videoMixinColumn(video)
     div.related-video__thumbnail
-        if(video.thumbnailUrl)
+        if video.thumbnailUrl
             a(href=`/videos/${video.id}`)
                 div.thumbnail(style=`background-image:url(/${video.thumbnailUrl})`) 
         else
@@ -54,9 +54,9 @@ mixin videoMixinColumn(video)
 
 mixin videoMixinSearch(video)
     div.video__thumbnail
-        if(video.thumbnailUrl)
+        if video.thumbnailUrl
             a(href=`/videos/${video.id}`)
-                div.thumbnail(style=`background-image:url(/${video.thumbnailUrl})`) 
+                video.thumbnail(width="320px", style=`background-image:url(/${video.thumbnailUrl})`)
         else
             a(href=`/videos/${video.id}`) 
                 video(src=`/${video.videoUrl}`, width="320px").content__video

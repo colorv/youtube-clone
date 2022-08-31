@@ -94,9 +94,7 @@ export const postUpload = async (req, res) => {
   } = req;
 
   const videoUrl = video[0].path;
-  if (thumb) {
-    const thumbnailUrl = thumb[0].path;
-  }
+  const thumbnailUrl = thumb ? thumb[0].path : "";
 
   try {
     const video = new Video({
@@ -104,7 +102,7 @@ export const postUpload = async (req, res) => {
       description,
       hashtags: Video.formatHashtags(hashtags),
       videoUrl,
-      thumbnailUrl: thumb ? thumbnailUrl : "",
+      thumbnailUrl,
       owner: _id,
     });
     await video.save();
@@ -124,23 +122,7 @@ export const postUpload = async (req, res) => {
 };
 
 // Delete Video
-export const deleteVideo = async (req, res) => {
-  const {
-    params: { id },
-    session: {
-      user: { _id },
-    },
-  } = req;
-  const video = await Video.findById(id);
-  if (!video) {
-    return res.status(404).render("404", { pageTitle: "Video not found." });
-  }
-  if (String(_id) !== String(video.owner)) {
-    return res.status(403).redirect("/");
-  }
-  await video.remove();
-  return res.redirect("/");
-};
+export const deleteVideo = async (req, res) => {};
 
 // Search Video
 export const search = async (req, res) => {

@@ -9,6 +9,7 @@ module.exports = {
     videoPlayer: BASE_PATH + "videoPlayer.js",
     videoUpload: BASE_PATH + "videoUpload.js",
     videoComment: BASE_PATH + "videoComment.js",
+    videoWatch: BASE_PATH + "videoWatch.js",
     timeFormat: BASE_PATH + "timeFormat.js",
   },
   mode: "development",

@@ -35,6 +35,7 @@ block content
                     div.watch-video__meta
                         div.watch-video__meta__info 
                                 span.watch-video__meta__views 조회수 #{video.meta.views}회&nbsp;
+                                div.meta__block
                                 span#videoDate.watch-video__meta__date=`${video.createdAt}`
                         div.watch-video__btn-container
                             i.fa-solid.fa-thumbs-up
@@ -102,3 +103,4 @@ block script
     if loggedInUser
         script(src="/static/js/videoComment.js")
     script(src="/static/js/timeFormat.js")
+    script(src="/static/js/videoWatch.js")

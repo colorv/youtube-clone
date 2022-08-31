@@ -17,4 +17,21 @@
       font-size: 14px;
     }
   }
+  .video__text {
+    font-size: 12px;
+    .profile__avatar--s,
+    .profile__avatar__default--s {
+      width: 24px;
+      height: 24px;
+      font-size: 10px;
+    }
+    .video__description {
+      line-height: 15px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+  }
 }

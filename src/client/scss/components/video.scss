@@ -5,11 +5,9 @@
   margin: 0px 10px 50px 10px;
   .video__thumbnail {
     .thumbnail {
-      display: flex;
-      width: 250px;
-      height: 140px;
       background-size: cover;
       background-position: center;
+      padding-top: 23px;
     }
     video {
       width: 100%;
@@ -69,13 +67,6 @@
         .video__meta__info {
           display: flex;
           align-items: center;
-          .meta__block {
-            width: 3px;
-            height: 3px;
-            border-radius: 50%;
-            background-color: $grey_text;
-            margin: 0px 5px;
-          }
         }
       }
       &:hover {
@@ -87,23 +78,24 @@
   }
 }
 
-// video__m (css)
-.video__m {
+// Searched Video - Css
+.searched-video {
   width: 100%;
   display: flex;
   margin-bottom: 15px;
   color: $grey_text;
   .video__thumbnail {
     margin-right: 20px;
+    width: 100%;
+    max-width: 360px;
+    min-width: 240px;
     .thumbnail {
-      display: flex;
-      width: 360px;
-      height: 202px;
       background-size: cover;
       background-position: center;
+      padding-top: 22.5px;
     }
     video {
-      width: 360px;
+      width: 100%;
     }
   }
   .video__info {
@@ -142,13 +134,6 @@
           display: flex;
           align-items: center;
           font-size: 12px;
-          .meta__block {
-            width: 3px;
-            height: 3px;
-            border-radius: 50%;
-            background-color: $grey_text;
-            margin: 0px 5px;
-          }
         }
         .video__owner {
           display: flex;
@@ -169,13 +154,12 @@
     }
   }
 }
-// End -> video__m css
+// End -> Searched Video
 
-//relatedVideo (css)
+// Related Video - Css
 .related-video__thumbnail {
   height: 100px;
   .thumbnail {
-    display: flex;
     width: 180px;
     height: 101px;
     background-size: cover;
@@ -198,7 +182,6 @@
       .related-video__title--h1 {
         font-size: 14px;
         margin-bottom: 5px;
-        max-width: 223px;
         line-height: 20px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -222,19 +205,12 @@
       line-height: 20px;
       color: $grey_text;
       .related-video__owner-name {
-        font-size: 14px;
+        font-size: 12px;
       }
       .related-video__meta__info {
         display: flex;
         align-items: center;
         font-size: 12px;
-        .meta__block {
-          width: 3px;
-          height: 3px;
-          border-radius: 50%;
-          background-color: $grey_text;
-          margin: 0px 5px;
-        }
       }
     }
     &:hover {
@@ -243,4 +219,12 @@
       }
     }
   }
+}
+
+.meta__block {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: $grey_text;
+  margin: 0px 5px;
 }

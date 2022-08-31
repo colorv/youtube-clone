@@ -1,20 +1,26 @@
 .main-profile {
+  display: flex;
+  width: 100%;
+  min-height: 1500px;
   background-color: #0f0f0f;
+
   .profile {
     width: 100%;
+    min-width: 500px;
+    max-width: 1300px;
+    margin: 0px auto;
+    padding-left: 70px;
     .profile__header {
       background-color: $dark_bg;
       .profile__header__user {
         display: flex;
         padding: 30px 23px;
-        width: 1300px;
-        margin: 0px auto;
         .profile__header__user__column:first-child {
           display: flex;
           width: 50%;
+
           .profile__user__edit {
             position: relative;
-
             .profile__edit__button {
               display: flex;
               justify-content: center;
@@ -52,10 +58,10 @@
           }
         }
         .profile__header__user__column:last-child {
-          width: 50%;
           display: flex;
           justify-content: end;
           align-items: center;
+          width: 50%;
           button {
             padding: 10px 16px;
             background-color: $blue;
@@ -76,9 +82,7 @@
       .profile__header__nav {
         display: flex;
         padding: 20px;
-        width: 1300px;
-        margin: 0px auto;
-        .profile__header__nav__btn {
+        .nav__btn {
           margin: 0px 30px;
           font-size: 14px;
           color: rgba($color: white, $alpha: 0.5);
@@ -89,8 +93,6 @@
     .profile__body {
       display: flex;
       flex-direction: column;
-      width: 1300px;
-      margin: 0px auto;
       .profile__body__title {
         display: flex;
         align-items: center;
@@ -110,6 +112,7 @@
       .profile__body__content {
         display: flex;
         flex-wrap: wrap;
+        padding-left: 5px;
         .video {
           width: 210px;
           margin: 0px 2.5px;

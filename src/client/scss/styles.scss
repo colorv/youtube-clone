@@ -37,60 +37,205 @@ body {
 main {
   width: 100%;
   display: flex;
+  padding-top: 55px;
 }
 
-@media screen and (max-width: 630px) {
-  .video {
-    width: 100%;
-  }
+// Mediaquery - Home
+@media screen and (max-width: 500px) {
   .side-bar--none {
     display: none;
   }
   .home__video-list {
-    padding-left: 10%;
+    padding-left: 5%;
+    .video {
+      width: 100%;
+    }
   }
   .header__search {
     visibility: hidden;
   }
 }
 
-@media screen and (min-width: 631px) and (max-width: 910px) {
-  .video {
-    width: 45%;
+@media screen and (min-width: 501px) and (max-width: 790px) {
+  .side-bar--none {
+    display: none;
+  }
+  .home__video-list {
+    .video {
+      width: 45%;
+    }
   }
   .header__search {
     visibility: hidden;
   }
 }
-
-@media screen and (min-width: 911px) and (max-width: 1170px) {
-  .video {
-    width: 30%;
-  }
-}
-
-@media screen and (min-width: 1171px) and (max-width: 1450px) {
-  .video {
-    width: 23%;
-  }
+@media screen and (min-width: 791px) and (max-width: 870px) {
   .home__video-list {
-    padding-left: 3%;
+    padding-left: 9%;
+    .video {
+      width: 45%;
+    }
+  }
+  .header__search {
+    visibility: hidden;
   }
 }
-
-@media screen and (min-width: 1451px) and (max-width: 1760px) {
-  .video {
-    width: 18%;
-  }
-  .home__video-list {
-    padding-left: 4%;
-  }
-}
-@media screen and (min-width: 1761px) and (max-width: 2560px) {
-  .video {
-    width: 15%;
-  }
+@media screen and (min-width: 871px) and (max-width: 1130px) {
   .home__video-list {
     padding-left: 5%;
+    .video {
+      width: 30%;
+    }
+  }
+}
+@media screen and (min-width: 1131px) and (max-width: 1800px) {
+  .home__video-list {
+    padding-left: 5%;
+    .video {
+      width: 23%;
+    }
+  }
+}
+@media screen and (min-width: 1801px) and (max-width: 2130px) {
+  .home__video-list {
+    padding-left: 3%;
+    .video {
+      width: 18%;
+    }
+  }
+}
+@media screen and (min-width: 2131px) and (max-width: 2560px) {
+  .home__video-list {
+    padding-left: 5%;
+    .video {
+      width: 15%;
+    }
+  }
+}
+
+// Mediaquery - Watch Video
+@media screen and (max-width: 580px) {
+  .watch-video__meta__info {
+    width: 1px;
+    height: 1px;
+    .watch-video__meta__views,
+    .meta__block,
+    .watch-video__meta__date {
+      width: 1px;
+      height: 1px;
+      visibility: hidden;
+    }
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .watch-video__meta__info {
+    .watch-video__meta__date,
+    .meta__block {
+      width: 1px;
+      height: 1px;
+      visibility: hidden;
+    }
+  }
+}
+
+@media screen and (max-width: 1004px) {
+  .main-watch {
+    .watch,
+    .watch__related-video {
+      width: 100%;
+    }
+
+    .related-video__info {
+      width: 100%;
+      .related-video__text {
+        width: 100%;
+        .related-video__title {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1005px) and (max-width: 1090px) {
+  .watch-video__meta__info {
+    .watch-video__meta__date,
+    .meta__block {
+      width: 1px;
+      height: 1px;
+      visibility: hidden;
+    }
+  }
+}
+
+// Mediaquery - Search
+@media screen and (max-width: 500px) {
+  .search {
+    margin-left: 0px;
+  }
+}
+@media screen and (min-width: 501px) and (max-width: 790px) {
+  .search {
+    margin-left: 0px;
+  }
+}
+@media screen and (min-width: 791px) and (max-width: 1300px) {
+  .search {
+    margin-left: 80px;
+  }
+}
+
+// Mediaquery - Profile
+@media screen and (max-width: 510px) {
+  .profile__header__nav {
+    .btn-channel {
+      display: none;
+    }
+  }
+}
+@media screen and (max-width: 595px) {
+  .profile__header__nav {
+    .btn-info {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .profile__header__nav {
+    .nav__btn:last-child {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .profile {
+    .profile__avatar {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 790px) {
+  .main-profile {
+    .profile {
+      padding-left: 0px;
+    }
+  }
+
+  .profile__body {
+    padding-left: 5%;
+  }
+}
+@media screen and (min-width: 791px) and (max-width: 894px) {
+  .profile__body {
+    padding-left: 7%;
+  }
+}
+@media screen and (min-width: 895px) and (max-width: 1450px) {
+  .profile__body {
+    padding-left: 7%;
   }
 }
