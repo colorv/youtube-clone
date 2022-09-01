@@ -12,8 +12,9 @@ module.exports = {
     videoWatch: BASE_PATH + "videoWatch.js",
     timeFormat: BASE_PATH + "timeFormat.js",
   },
-  mode: "development",
-  watch: true,
+  // package.json script에서 설정 할 수 있음.
+  // mode: "development",
+  // watch: true,
   plugins: [
     new MiniCssExtractPlugin({
       filename: "css/styles.css",
