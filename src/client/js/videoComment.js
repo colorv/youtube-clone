@@ -20,7 +20,7 @@ class Comment extends HTMLElement {
     if (avatarUrl) {
       const imageUrl = document.createElement("img");
       imageUrl.className = "profile__avatar--m";
-      imageUrl.src = "/" + this.getAttribute("avatarurl");
+      imageUrl.src = this.getAttribute("avatarurl");
       user.appendChild(imageUrl);
     }
     if (!avatarUrl) {

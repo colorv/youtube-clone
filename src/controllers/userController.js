@@ -278,7 +278,7 @@ export const postEdit = async (req, res) => {
       email: newEmail,
       username: newUsername,
       channelName: newChannelName,
-      avatarUrl: file ? file.path : avatarUrl,
+      avatarUrl: file ? file.location : avatarUrl,
     },
     { new: true }
   );

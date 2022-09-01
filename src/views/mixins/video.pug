@@ -2,10 +2,10 @@ mixin videoMixinRow(video)
     div.video__thumbnail
         if video.thumbnailUrl
             a(href=`/videos/${video.id}`)
-                video.thumbnail(width="320px", style=`background-image:url(/${video.thumbnailUrl})`)
+                video.thumbnail(width="320px",  style=`background-image:url(${video.thumbnailUrl})` crossorigin)
         else
             a(href=`/videos/${video.id}`) 
-                video(src=`/${video.videoUrl}`, width="320px").content__video
+                video(src=`${video.videoUrl}`, width="320px" crossorigin).content__video
     hgroup.video__info
         div.video__owner
             +videoOwnerAvatarS(video)
@@ -30,10 +30,10 @@ mixin videoMixinColumn(video)
     div.related-video__thumbnail
         if video.thumbnailUrl
             a(href=`/videos/${video.id}`)
-                div.thumbnail(style=`background-image:url(/${video.thumbnailUrl})`) 
+                div.thumbnail(style=`background-image:url(${video.thumbnailUrl})`) 
         else
             a(href=`/videos/${video.id}`) 
-                video(src=`/${video.videoUrl}`, width="320px").content__video
+                video(src=`${video.videoUrl}`, width="320px" crossorigin).content__video
     hgroup.related-video__info
         div.related-video__text
             div.related-video__title 
@@ -56,10 +56,10 @@ mixin videoMixinSearch(video)
     div.video__thumbnail
         if video.thumbnailUrl
             a(href=`/videos/${video.id}`)
-                video.thumbnail(width="320px", style=`background-image:url(/${video.thumbnailUrl})`)
+                video.thumbnail(width="320px", style=`background-image:url(${video.thumbnailUrl})` crossorigin)
         else
             a(href=`/videos/${video.id}`) 
-                video(src=`/${video.videoUrl}`, width="320px").content__video
+                video(src=`${video.videoUrl}`, width="320px" crossorigin).content__video
     hgroup.video__info
         div.video__text
             a(href=`/videos/${video.id}`) 
