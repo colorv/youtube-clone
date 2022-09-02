@@ -22,7 +22,10 @@ block content
                             i.fa-brands.fa-github
                             span 깃허브 로그인
                     a(href="/users/kakao/login")
-                        img(src="uploads/images/kakao_login_medium_wide.png").social-login-kakao
+                        if inHeroku
+                            img(src="https://aws-youtube.s3.ap-northeast-2.amazonaws.com/kakao_login_medium_wide.png").social-login-kakao
+                        else
+                            img(src="uploads/images/kakao_login_medium_wide.png").social-login-kakao
             div.join 
                 span 비밀번호 찾기 | 
                 span 아이디 찾기 | 
