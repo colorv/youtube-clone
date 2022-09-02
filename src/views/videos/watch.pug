@@ -8,7 +8,10 @@ block content
     main.main-watch
         article.watch
             div.watch-video#videoContainer(data-id=video._id)
-                video(src=`${video.videoUrl}` crossorigin).content__video
+                if inHeroku
+                    video(src=`${video.videoUrl}` crossorigin).content__video
+                else 
+                    video(src=`/${video.videoUrl}` crossorigin).content__video
                 div#videoController.videoController
                     div.videoController__time-line
                         input#timeLine(type="range", step="1", min="0", value=0) 

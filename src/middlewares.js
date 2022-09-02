@@ -10,16 +10,31 @@ const s3 = new S3Client({
   },
 });
 
-const multerS3Uploader = multerS3({
+const inHeroku = process.env.NODE_ENV === "production";
+
+const s3ImageUploader = multerS3({
   s3: s3,
   bucket: "aws-youtube",
   acl: "public-read",
+  key: function (req, file, cb) {
+    cb(null, `images/${Date.now()}_${file.originalname}`);
+  },
+});
+
+const s3VideoUploader = multerS3({
+  s3: s3,
+  bucket: "aws-youtube",
+  acl: "public-read",
+  key: function (req, file, cb) {
+    cb(null, `videos/${Date.now()}_${file.originalname}`);
+  },
 });
 
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "Youtube";
   res.locals.loggedIn = Boolean(req.session.loggedIn);
   res.locals.loggedInUser = req.session.user;
+  res.locals.inHeroku = inHeroku;
   return next();
 };
 
@@ -42,7 +57,7 @@ export const publicOnlyMiddleware = (req, res, next) => {
 export const avatarUpload = multer({
   dest: "uploads/avatars",
   limits: { fileSize: 10000000 },
-  storage: multerS3Uploader,
+  storage: inHeroku ? s3ImageUploader : undefined,
 });
 
 // export const videoUpload = multer({
@@ -55,7 +70,7 @@ export const videoUpload = (req, res, next) => {
   const videoMulter = multer({
     dest: "uploads/videos",
     limits: { fileSize: 100000000 },
-    storage: multerS3Uploader,
+    storage: inHeroku ? s3VideoUploader : undefined,
   }).fields([{ name: "video" }, { name: "thumb" }]);
 
   videoMulter(req, res, function (err) {

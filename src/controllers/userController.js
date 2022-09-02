@@ -270,6 +270,8 @@ export const postEdit = async (req, res) => {
     }
   }
 
+  const avatarPath = file.location ? file.location : file.path;
+
   const updateUser = await User.findByIdAndUpdate(
     _id,
     {
@@ -278,7 +280,7 @@ export const postEdit = async (req, res) => {
       email: newEmail,
       username: newUsername,
       channelName: newChannelName,
-      avatarUrl: file ? file.location : avatarUrl,
+      avatarUrl: file ? avatarPath : avatarUrl,
     },
     { new: true }
   );

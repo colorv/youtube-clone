@@ -93,8 +93,9 @@ export const postUpload = async (req, res) => {
     files: { video, thumb },
   } = req;
 
-  const videoUrl = video[0].location;
-  const thumbnailUrl = thumb ? thumb[0].location : "";
+  const videoUrl = video[0].location ? video[0].location : video[0].path;
+  const thumbPath = thumb[0].location ? thumb[0].location : thumb[0].path;
+  const thumbnailUrl = thumb ? thumbPath : "";
 
   try {
     const video = new Video({

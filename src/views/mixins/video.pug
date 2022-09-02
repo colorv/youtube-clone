@@ -2,10 +2,16 @@ mixin videoMixinRow(video)
     div.video__thumbnail
         if video.thumbnailUrl
             a(href=`/videos/${video.id}`)
-                video.thumbnail(width="320px",  style=`background-image:url(${video.thumbnailUrl})` crossorigin)
+                if inHeroku
+                    video.thumbnail(width="320px",  style=`background-image:url(${video.thumbnailUrl})` crossorigin)
+                else 
+                    video.thumbnail(width="320px",  style=`background-image:url(/${video.thumbnailUrl})` crossorigin)
         else
             a(href=`/videos/${video.id}`) 
-                video(src=`${video.videoUrl}`, width="320px" crossorigin).content__video
+                if inHeroku
+                    video(src=`${video.videoUrl}`, width="320px" crossorigin).content__video
+                else
+                    video(src=`/${video.videoUrl}`, width="320px" crossorigin).content__video
     hgroup.video__info
         div.video__owner
             +videoOwnerAvatarS(video)
@@ -30,10 +36,16 @@ mixin videoMixinColumn(video)
     div.related-video__thumbnail
         if video.thumbnailUrl
             a(href=`/videos/${video.id}`)
-                div.thumbnail(style=`background-image:url(${video.thumbnailUrl})`) 
+                if inHeroku
+                    div.thumbnail(style=`background-image:url(${video.thumbnailUrl})`) 
+                else 
+                    div.thumbnail(style=`background-image:url(/${video.thumbnailUrl})`) 
         else
             a(href=`/videos/${video.id}`) 
-                video(src=`${video.videoUrl}`, width="320px" crossorigin).content__video
+                if inHeroku
+                    video(src=`${video.videoUrl}`, width="320px" crossorigin).content__video
+                else 
+                    video(src=`/${video.videoUrl}`, width="320px" crossorigin).content__video
     hgroup.related-video__info
         div.related-video__text
             div.related-video__title 
@@ -56,10 +68,16 @@ mixin videoMixinSearch(video)
     div.video__thumbnail
         if video.thumbnailUrl
             a(href=`/videos/${video.id}`)
-                video.thumbnail(width="320px", style=`background-image:url(${video.thumbnailUrl})` crossorigin)
+                if inHeroku
+                    video.thumbnail(width="320px", style=`background-image:url(${video.thumbnailUrl})` crossorigin)
+                else 
+                    video.thumbnail(width="320px", style=`background-image:url(/${video.thumbnailUrl})` crossorigin)
         else
             a(href=`/videos/${video.id}`) 
-                video(src=`${video.videoUrl}`, width="320px" crossorigin).content__video
+                if inHeroku
+                    video(src=`${video.videoUrl}`, width="320px" crossorigin).content__video
+                else 
+                    video(src=`/${video.videoUrl}`, width="320px" crossorigin).content__video
     hgroup.video__info
         div.video__text
             a(href=`/videos/${video.id}`) 
