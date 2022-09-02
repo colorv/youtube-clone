@@ -253,7 +253,7 @@ volumeController.addEventListener("mouseleave", volumeOnMouseLeave);
 fullScreenBtn.addEventListener("click", fullScreenOnClick);
 videoContainer.addEventListener("fullscreenchange", fullScreenOnChange);
 // Video Time
-video.addEventListener("loadedmetadata", videoOnLoadedMetaData);
+video.addEventListener("canplay", videoOnLoadedMetaData);
 video.addEventListener("timeupdate", videoOnTimeUpdate);
 timeLine.addEventListener("input", timeLineOnChange);
 // Video Controller Show or Hide
@@ -269,3 +269,6 @@ video.addEventListener("ended", videoOnEnded);
 // Input keyEvent - Block and UnBlock
 commentInput.addEventListener("focusin", inputOnFocusIn);
 commentInput.addEventListener("focusout", inputOnFocusOut);
+
+// heroku -videoTime
+videoOnLoadedMetaData();

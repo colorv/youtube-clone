@@ -14,7 +14,6 @@ const replaceComment = (width) => {
     watch.appendChild(newComment);
   }
   if (width > 1004) {
-    console.log(main.childNodes.length);
     if (main.childNodes.length === 1) {
       main.appendChild(newRelatedVideo);
     }
